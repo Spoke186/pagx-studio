@@ -1,0 +1,249 @@
+<title>PagX Studio · Color</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --page:#0c0c0d;--ink:#ececec;--mute:#9a9a9e;--line:#2a2a2d;
+  --ok:#7fd49a;--warn:#e7b85c;
+  font-family:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+body{background:var(--page);color:var(--ink);margin:0;padding-inline:clamp(16px,4vw,56px);padding-block:48px 96px;font-size:16px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:96px}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:500;letter-spacing:-.02em}
+h1{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.02}
+h2{font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.05}
+h3{font-size:1rem;font-weight:700}
+p{margin:0;max-width:62ch}
+.intro{display:grid;gap:20px}
+.intro p{color:var(--mute);font-size:1.1rem}
+.kind{color:var(--mute);font-size:.95rem}
+.dir{display:grid;gap:28px}
+.head{display:grid;gap:10px}
+.story{color:var(--mute);font-size:1.05rem}
+/* proportion bar */
+.bar{display:flex;height:120px;border-radius:14px;overflow:hidden;outline:1px solid var(--line)}
+.bar span{display:flex;align-items:flex-end;padding:10px;font-size:.78rem;min-width:0;white-space:nowrap;overflow:hidden}
+/* swatches */
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
+.sw div{display:grid;gap:4px;font-size:.85rem}
+.sw i{display:block;height:44px;border-radius:8px;outline:1px solid var(--line)}
+.sw b{font-weight:500}
+.sw code{color:var(--mute);font-size:.78rem;font-variant-numeric:tabular-nums}
+/* scene */
+.scene{display:grid;grid-template-columns:1.1fr 1fr;border-radius:20px;overflow:hidden;min-height:440px}
+.copy{padding:clamp(24px,4vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+.copy .t{font-size:clamp(1.9rem,3.4vw,2.9rem);line-height:1.02;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
+.copy p{font-size:1rem}
+.copy .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{border:0;font:inherit;font-weight:700;padding:14px 22px;border-radius:999px;cursor:pointer}
+.ghost{background:none;font:inherit;padding:13px 20px;border-radius:999px;cursor:pointer}
+.btn:focus-visible,.ghost:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.photo{position:relative;min-height:280px;display:flex;align-items:flex-end;padding:22px}
+.glass{backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);border-radius:16px;padding:18px 20px;display:grid;gap:6px;max-width:300px;font-size:.9rem}
+.glass b{font-size:1rem;font-weight:500}
+.cap{font-size:.8rem;color:var(--mute)}
+/* contrast */
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;font-variant-numeric:tabular-nums}
+td,th{padding:8px 0;border-bottom:1px solid var(--line);text-align:left;font-weight:400}
+th{color:var(--mute)}
+td:last-child,th:last-child{text-align:right}
+.p{color:var(--ok)} .w{color:var(--warn)}
+ul{margin:0;padding-left:1.1em;display:grid;gap:8px;color:var(--mute);max-width:62ch}
+ul b{color:var(--ink);font-weight:500}
+hr{border:0;border-top:1px solid var(--line);margin:0}
+.choose{display:grid;gap:16px}
+@media (max-width:760px){.scene{grid-template-columns:1fr}.bar{height:84px}.bar span{font-size:0}}
+@media (prefers-reduced-motion:no-preference){.btn{transition:transform .25s cubic-bezier(.2,.7,.2,1)}.btn:hover{transform:translateY(-2px)}}
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <p class="kind">PagX Studio · Fase F2 · Identidad de color</p>
+    <h1>Tres formas de vestir el negro</h1>
+    <p>Las tres parten del negro, como pediste, y cada una le da un origen distinto: una piedra, un lugar y un fruto. Todas salen de Pereira y del Eje Cafetero, no de una tendencia. Solo es color; la tipografía y el layout vienen después. Elige una, o dime qué mezclarías.</p>
+  </header>
+
+  <!-- A -->
+  <section class="dir" style="--focus:#bcd5e5">
+    <div class="head">
+      <p class="kind">A · Segura</p>
+      <h2>Obsidiana</h2>
+      <p class="story">El vidrio volcánico del Nevado del Ruiz: negro, pero con reflejo. El lujo está en los matices del gris y en un solo brillo de hielo que aparece donde está la acción. Es la dirección que nadie rechaza. Su riesgo es que se parezca a otros estudios si la ejecución no es impecable.</p>
+    </div>
+    <div class="bar">
+      <span style="flex:70;background:#090a0e;color:#a1a4ac">Lienzo 70%</span>
+      <span style="flex:15;background:#15171c;color:#a1a4ac">Superficie 15%</span>
+      <span style="flex:9;background:#edeef1;color:#090a0e">Texto 9%</span>
+      <span style="flex:4;background:#a1a4ac;color:#090a0e">Sec. 4%</span>
+      <span style="flex:2;background:#bcd5e5"></span>
+    </div>
+    <div class="sw">
+      <div><i style="background:#090a0e"></i><b>Obsidiana</b><code>oklch(0.145 0.008 270) · #090A0E</code><span class="cap">Lienzo</span></div>
+      <div><i style="background:#15171c"></i><b>Basalto</b><code>oklch(0.205 0.010 270) · #15171C</code><span class="cap">Superficie elevada</span></div>
+      <div><i style="background:#33353c"></i><b>Ceniza</b><code>oklch(0.33 0.012 270) · #33353C</code><span class="cap">Bordes decorativos</span></div>
+      <div><i style="background:#edeef1"></i><b>Plata</b><code>oklch(0.95 0.004 270) · #EDEEF1</code><span class="cap">Texto principal</span></div>
+      <div><i style="background:#a1a4ac"></i><b>Humo</b><code>oklch(0.72 0.012 270) · #A1A4AC</code><span class="cap">Texto secundario, bordes de controles</span></div>
+      <div><i style="background:#bcd5e5"></i><b>Hielo</b><code>oklch(0.86 0.035 235) · #BCD5E5</code><span class="cap">Acción y foco (2%)</span></div>
+    </div>
+    <div class="scene" style="background:#090a0e;color:#edeef1">
+      <div class="copy">
+        <p class="t">Tu negocio merece un sitio que nadie olvide.</p>
+        <p style="color:#a1a4ac">Diseñamos y construimos sitios con 3D, movimiento e interacción. Cada proyecto es a medida y se cotiza por WhatsApp.</p>
+        <div class="row">
+          <button class="btn" style="background:#bcd5e5;color:#090a0e">Cotizar por WhatsApp</button>
+          <button class="ghost" style="color:#edeef1;border:1px solid #a1a4ac">Ver demos</button>
+        </div>
+      </div>
+      <div class="photo" style="background:radial-gradient(120% 80% at 70% 20%,#3a3f4a 0%,#15171c 45%,#090a0e 80%),#090a0e">
+        <div class="glass" style="background:rgba(21,23,28,.55);border:1px solid rgba(237,238,241,.14)">
+          <b>Demo · Tienda</b><span style="color:#a1a4ac">Vidrio sobre basalto: el material toma el gris frío del lienzo.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- B -->
+  <section class="dir" style="--focus:#63d4c6">
+    <div class="head">
+      <p class="kind">B · Propia</p>
+      <h2>Termales de noche</h2>
+      <p class="story">Las aguas termales de Santa Rosa de Cabal, a media hora de Pereira, de noche: el negro verdoso del bosque de niebla, el vapor blanco, el turquesa mineral del agua y la brasa de un farol. Habla directo a tu nicho de glampings. Es la dirección que más se siente de PagX.</p>
+    </div>
+    <div class="bar">
+      <span style="flex:68;background:#050d0b;color:#9fafa7">Lienzo 68%</span>
+      <span style="flex:16;background:#0e1b18;color:#9fafa7">Superficie 16%</span>
+      <span style="flex:9;background:#e6eee7;color:#050d0b">Vapor 9%</span>
+      <span style="flex:4;background:#9fafa7;color:#050d0b">Sec. 4%</span>
+      <span style="flex:2.5;background:#63d4c6"></span>
+      <span style="flex:.5;background:#ed914c"></span>
+    </div>
+    <div class="sw">
+      <div><i style="background:#050d0b"></i><b>Bosque de niebla</b><code>oklch(0.15 0.016 175) · #050D0B</code><span class="cap">Lienzo</span></div>
+      <div><i style="background:#0e1b18"></i><b>Musgo</b><code>oklch(0.21 0.020 175) · #0E1B18</code><span class="cap">Superficie elevada</span></div>
+      <div><i style="background:#2a3c37"></i><b>Piedra mojada</b><code>oklch(0.34 0.026 175) · #2A3C37</code><span class="cap">Bordes decorativos</span></div>
+      <div><i style="background:#e6eee7"></i><b>Vapor</b><code>oklch(0.94 0.012 150) · #E6EEE7</code><span class="cap">Texto principal</span></div>
+      <div><i style="background:#9fafa7"></i><b>Neblina</b><code>oklch(0.74 0.022 165) · #9FAFA7</code><span class="cap">Texto secundario, bordes de controles</span></div>
+      <div><i style="background:#63d4c6"></i><b>Agua mineral</b><code>oklch(0.80 0.105 185) · #63D4C6</code><span class="cap">Acción y foco (2,5%)</span></div>
+      <div><i style="background:#ed914c"></i><b>Brasa</b><code>oklch(0.74 0.14 55) · #ED914C</code><span class="cap">Un solo momento: el modo noche de la demo (0,5%)</span></div>
+    </div>
+    <div class="scene" style="background:#050d0b;color:#e6eee7">
+      <div class="copy">
+        <p class="t">Tu negocio merece un sitio que nadie olvide.</p>
+        <p style="color:#9fafa7">Diseñamos y construimos sitios con 3D, movimiento e interacción. Cada proyecto es a medida y se cotiza por WhatsApp.</p>
+        <div class="row">
+          <button class="btn" style="background:#63d4c6;color:#050d0b">Cotizar por WhatsApp</button>
+          <button class="ghost" style="color:#e6eee7;border:1px solid #9fafa7">Ver demos</button>
+        </div>
+      </div>
+      <div class="photo" style="background:radial-gradient(60% 40% at 30% 85%,rgba(237,145,76,.35),transparent 70%),radial-gradient(90% 60% at 60% 70%,#1f5a53 0%,#0e1b18 55%,#050d0b 85%),linear-gradient(180deg,rgba(230,238,231,.10),transparent 40%),#050d0b">
+        <div class="glass" style="background:rgba(14,27,24,.5);border:1px solid rgba(230,238,231,.16)">
+          <b>Demo · Glamping</b><span style="color:#9fafa7">Vidrio empañado sobre agua termal. La brasa solo aparece en el modo noche.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- C -->
+  <section class="dir" style="--focus:#ed4952">
+    <div class="head">
+      <p class="kind">C · Arriesgada</p>
+      <h2>Cereza de café</h2>
+      <p class="story">En el Eje Cafetero solo la cereza madura se recoge a mano, una por una. Eso es exclusividad. El negro es de café tostado, el texto tiene el tono del pergamino del grano y el rojo es de cereza madura. Ningún estudio web usa esta paleta. El rojo aparece como un campo grande en un solo momento, nunca como un punto de neón.</p>
+    </div>
+    <div class="bar">
+      <span style="flex:64;background:#0e0806;color:#baab9a">Lienzo 64%</span>
+      <span style="flex:14;background:#1d1310;color:#baab9a">Superficie 14%</span>
+      <span style="flex:9;background:#f0e7d6;color:#0e0806">Pergamino 9%</span>
+      <span style="flex:4;background:#baab9a;color:#0e0806">Sec. 4%</span>
+      <span style="flex:8;background:#a21829;color:#f0e7d6">Cereza 8%</span>
+      <span style="flex:1;background:#ed4952"></span>
+    </div>
+    <div class="sw">
+      <div><i style="background:#0e0806"></i><b>Tostado</b><code>oklch(0.14 0.012 40) · #0E0806</code><span class="cap">Lienzo</span></div>
+      <div><i style="background:#1d1310"></i><b>Tueste medio</b><code>oklch(0.20 0.018 40) · #1D1310</code><span class="cap">Superficie elevada</span></div>
+      <div><i style="background:#41312c"></i><b>Cascarilla</b><code>oklch(0.33 0.024 40) · #41312C</code><span class="cap">Bordes decorativos</span></div>
+      <div><i style="background:#f0e7d6"></i><b>Pergamino</b><code>oklch(0.93 0.025 85) · #F0E7D6</code><span class="cap">Texto principal</span></div>
+      <div><i style="background:#baab9a"></i><b>Crema</b><code>oklch(0.75 0.030 72) · #BAAB9A</code><span class="cap">Texto secundario, bordes de controles</span></div>
+      <div><i style="background:#a21829"></i><b>Cereza madura</b><code>oklch(0.46 0.17 22) · #A21829</code><span class="cap">Campos y botón (8%)</span></div>
+      <div><i style="background:#ed4952"></i><b>Cereza viva</b><code>oklch(0.64 0.20 22) · #ED4952</code><span class="cap">Foco y marcas pequeñas (1%)</span></div>
+    </div>
+    <div class="scene" style="background:#0e0806;color:#f0e7d6">
+      <div class="copy">
+        <p class="t">Tu negocio merece un sitio que nadie olvide.</p>
+        <p style="color:#baab9a">Diseñamos y construimos sitios con 3D, movimiento e interacción. Cada proyecto es a medida y se cotiza por WhatsApp.</p>
+        <div class="row">
+          <button class="btn" style="background:#a21829;color:#f0e7d6">Cotizar por WhatsApp</button>
+          <button class="ghost" style="color:#f0e7d6;border:1px solid #baab9a">Ver demos</button>
+        </div>
+      </div>
+      <div class="photo" style="background:radial-gradient(14% 18% at 28% 34%,#c9253a,#6b0d1a 70%,transparent 72%),radial-gradient(12% 16% at 44% 52%,#b01e31,#5a0b16 70%,transparent 72%),radial-gradient(13% 17% at 62% 30%,#a21829,#4e0a14 70%,transparent 72%),radial-gradient(90% 70% at 50% 40%,#2a1a14,#0e0806 80%),#0e0806">
+        <div class="glass" style="background:rgba(29,19,16,.55);border:1px solid rgba(240,231,214,.14)">
+          <b>Demo · Producto</b><span style="color:#baab9a">Vidrio ahumado sobre cerezas: el material toma el calor del tostado.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <section class="dir">
+    <div class="head">
+      <h2>Verificación</h2>
+      <p class="story">Contraste WCAG 2.2: el texto normal necesita 4,5:1 y el grande 3:1. También simulé los tres tipos de daltonismo (protanopia, deuteranopia y tritanopia).</p>
+    </div>
+    <div class="checks">
+      <div>
+        <h3>Obsidiana</h3>
+        <table>
+          <tr><th>Combinación</th><th>Contraste</th></tr>
+          <tr><td>Plata sobre obsidiana</td><td class="p">17,1 ✓</td></tr>
+          <tr><td>Humo sobre obsidiana</td><td class="p">8,0 ✓</td></tr>
+          <tr><td>Humo sobre basalto</td><td class="p">7,2 ✓</td></tr>
+          <tr><td>Obsidiana sobre hielo (botón)</td><td class="p">13,0 ✓</td></tr>
+          <tr><td>Hielo sobre obsidiana</td><td class="p">13,0 ✓</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>Termales de noche</h3>
+        <table>
+          <tr><th>Combinación</th><th>Contraste</th></tr>
+          <tr><td>Vapor sobre bosque</td><td class="p">16,5 ✓</td></tr>
+          <tr><td>Neblina sobre bosque</td><td class="p">8,6 ✓</td></tr>
+          <tr><td>Neblina sobre musgo</td><td class="p">7,7 ✓</td></tr>
+          <tr><td>Bosque sobre agua mineral (botón)</td><td class="p">11,0 ✓</td></tr>
+          <tr><td>Brasa sobre bosque</td><td class="p">8,2 ✓</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>Cereza de café</h3>
+        <table>
+          <tr><th>Combinación</th><th>Contraste</th></tr>
+          <tr><td>Pergamino sobre tostado</td><td class="p">16,2 ✓</td></tr>
+          <tr><td>Crema sobre tostado</td><td class="p">8,9 ✓</td></tr>
+          <tr><td>Pergamino sobre cereza madura (botón)</td><td class="p">6,4 ✓</td></tr>
+          <tr><td>Cereza viva sobre tostado</td><td class="p">5,4 ✓</td></tr>
+          <tr><td>Cereza viva con protanopia</td><td class="w">3,0 · solo con forma o texto</td></tr>
+        </table>
+      </div>
+    </div>
+    <ul>
+      <li><b>Bordes:</b> en las tres direcciones, el borde decorativo es sutil a propósito (1,6:1). Los bordes de controles como inputs o botones secundarios usan el texto secundario, con más de 7:1.</li>
+      <li><b>Daltonismo:</b> en Obsidiana y Termales, la acción se sigue distinguiendo en los tres tipos. En Cereza, el rojo se oscurece mucho con protanopia. Por eso nunca comunica nada solo: siempre va con texto, forma o icono.</li>
+      <li><b>Obsidiana:</b> el hielo se parece bastante a la plata (ΔE 9). Es sobrio a propósito, pero el acento pesa poco.</li>
+      <li><b>Trampas genéricas:</b> "negro con un solo acento neón" es una trampa conocida. Aquí la evitamos con negros teñidos (azul, verde o café, nunca gris neutro) y con acentos que salen de un material real, en dosis mínimas o, en Cereza, como campo grande.</li>
+    </ul>
+  </section>
+
+  <section class="choose">
+    <h2>¿Cuál elegimos?</h2>
+    <p class="story">Mi recomendación es <b style="color:var(--ink);font-weight:500">Termales de noche</b>. Sale de tu territorio, le habla directo a tu nicho de glampings y el turquesa mineral funciona muy bien sobre vidrio y en 3D. Cereza de café es la más memorable y también la más difícil de ejecutar. Obsidiana es la más segura y la menos tuya.</p>
+  </section>
+</div>

@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { dict } from '../i18n'
+const t = dict.es
+---
+
+<Layout lang="es" title={`${t.notFound.title} · PagX Studio`} description={t.meta.description} alternate="/en/">
+  <!-- the black-hole poster only (no WebGL here): same world as the home, zero script -->
+  <div class="stage is-static" aria-hidden="true"></div>
+  <main id="main" class="hero">
+    <div class="wrap nf">
+      <h1 class="display" style="max-width:12ch">{t.notFound.title}</h1>
+      <p class="muted">{dict.en.notFound.title}</p>
+      <div><a class="btn btn-primary" href="/"><span class="btn-label">{t.notFound.back}</span></a></div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  document.documentElement.classList.add('is-ready', 'is-revealed')
+</script>

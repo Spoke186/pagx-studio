@@ -1,0 +1,374 @@
+---
+// Instituto La Villa: an architecture project page (PagX concept). Content comes from the sheet PROYECTO FINAL.pdf;
+// every image is a Cycles render of assets/blender/villa.blend (villa_render.py). Direction: VILLA.md, DECISIONS #49.
+//   hero      layered aerial + WebGL (parallax, drifting cloud shadows, sun glint)  src/scripts/villa.ts
+//   proyecto  concept + the numbers of the brief, counted in
+//   proceso   the wow: the lot becomes the school, 120 frames scrubbed, labels anchored to each part
+//   programa  the real plan from above; each zone is a button that lights its block
+//   ambiente  four ecosystem services + the sheet's table
+//   agua      rainwater, a technical line drawing that fills as you scroll
+//   huerta    the school garden and its species
+//   cierre    dusk over the whole project + credits
+import '@fontsource-variable/funnel-display/wght.css'
+import '@fontsource-variable/funnel-sans/wght.css'
+import '../../styles/villa.css'
+
+const stats = [
+  { n: 18903, f: '18.903', u: 'm²', l: 'de lote' },
+  { n: 6445, f: '6.445', u: 'm²', l: 'construidos' },
+  { n: 3000, f: '3.000', u: '', l: 'estudiantes (hoy 650)' },
+  { n: 195, f: '195', u: '', l: 'bicicletas' },
+  { n: 40, f: '40', u: '', l: 'parqueaderos' },
+]
+const steps = [
+  { n: '01', t: 'El lote', d: '18.903 m² de suelo urbano en La Villa, frente a la sede actual.' },
+  { n: '02', t: 'Tres bloques académicos', d: 'Barras de aulas con quiebrasoles verticales y cubiertas verdes, alrededor de un patio.' },
+  { n: '03', t: 'La ola deportiva', d: 'Una cubierta ondulada cubre las canchas múltiples y las graderías.' },
+  { n: '04', t: 'El domo', d: 'Biblioteca y auditorio bajo una cúpula geodésica de vidrio.' },
+  { n: '05', t: 'Huerta y árboles', d: 'La huerta estudiantil ocupa el patio y el lote se arboriza.' },
+]
+const labels = [
+  { k: 'admin', t: 'Administrativo', c: 'var(--oro)' },
+  { k: 'social', t: 'Académico social', c: 'var(--salvia)' },
+  { k: 'academico', t: 'Académico', c: 'var(--salvia)' },
+  { k: 'cancha', t: 'Cancha', c: 'var(--verde)' },
+  { k: 'deportivo', t: 'Deportivo', c: 'var(--verde)' },
+  { k: 'domo', t: 'Biblioteca y auditorio', c: 'var(--cielo)' },
+  { k: 'huerta', t: 'Huerta estudiantil', c: 'var(--lima)' },
+]
+// the plan: V_Top is orthographic, 225 m wide centred on (0, -2), so model metres map straight to percentages
+const W = 225, H = 225 * 9 / 16, CX = 0, CY = -2
+const px = (x: number) => ((x - CX + W / 2) / W) * 100
+const py = (y: number) => ((CY + H / 2 - y) / H) * 100
+const rect = (x0: number, x1: number, y0: number, y1: number) => ({ x: px(x0), y: py(y1), w: px(x1) - px(x0), h: py(y0) - py(y1) })
+const zones = [
+  { k: 'academico', t: 'Académica', c: 'var(--salvia)', r: [rect(-90, -18, -44, -30), rect(-90, -10, 14, 28)],
+    items: ['Aulas de preescolar y primaria', 'Aulas de secundaria y media', 'Aulas especializadas: arte, música e informática', 'Laboratorios de física, química y biología'] },
+  { k: 'admin', t: 'Administrativa', c: 'var(--oro)', r: [rect(-92, -78, -30, 14)],
+    items: ['Rectoría y coordinación', 'Secretaría y recepción', 'Sala de profesores', 'Enfermería y orientación'] },
+  { k: 'deportivo', t: 'Deportiva', c: 'var(--verde)', r: [rect(-2, 64, -24, 30), rect(-10, 56, -48, -24)],
+    items: ['Canchas múltiples cubiertas', 'Cancha de fútbol', 'Graderías', 'Zona de juegos'] },
+  { k: 'domo', t: 'Cultural', c: 'var(--cielo)', r: [rect(59, 93, 3, 37)], round: true,
+    items: ['Biblioteca', 'Auditorio', 'Salas de lectura', 'Uso comunitario fuera de horario'] },
+  { k: 'huerta', t: 'Ambiental', c: 'var(--lima)', r: [rect(-65, -14, -21, 3)],
+    items: ['Huerta estudiantil', 'Terrazas verdes', 'Siembra de especies nativas', 'Recolección de agua lluvia'] },
+  { k: 'parqueo', t: 'Accesos', c: 'var(--band)', r: [rect(60, 94, -48, -6)],
+    items: ['40 parqueaderos', '195 cupos de bicicleta', 'Bahía de buses escolares', 'Accesos para movilidad reducida'] },
+]
+const pillars = [
+  { n: '1', t: 'Culturales', c: 'var(--oro)', what: 'Recreación, ecoturismo y salud física y mental.', how: 'Huertas estudiantiles y paseos peatonales verdes.', why: 'La conexión con la naturaleza mejora la salud mental y emocional.' },
+  { n: '2', t: 'Sostenimiento', c: 'var(--oliva)', what: 'Fotosíntesis.', how: 'Huertas y paseos peatonales arborizados.', why: 'Regula el dióxido de carbono, mitiga la contaminación de la construcción y libera oxígeno.' },
+  { n: '3', t: 'Aprovisionamiento', c: 'var(--gris-v)', what: 'Alimentos y generación de energía.', how: 'Siembra de plantas con frutos y flores, y turbinas en los canales de agua lluvia.', why: 'Mantiene ecosistemas saludables y biodiversos.' },
+  { n: '4', t: 'Regulación', c: 'var(--lima)', what: 'Polinización y calidad del aire.', how: 'Siembra de plantas con frutos y flores.', why: 'Mantiene ecosistemas saludables y biodiversos.' },
+]
+const table = {
+  cols: ['Cubierta verde y muros verdes', 'Turbinas de agua', 'Siembra de especies'],
+  rows: [
+    { t: 'Provisión', d: 'Energía limpia, comida y cultivo', x: [1, 1, 1] },
+    { t: 'Regulación hídrica', d: 'Aprovechamiento de aguas lluvias', x: [0, 1, 0] },
+    { t: 'Ventilación natural', d: 'Oxígeno, captura de CO₂ y partículas', x: [1, 0, 1] },
+    { t: 'Condiciones climáticas', d: 'Mitigación de la isla de calor urbana', x: [0, 0, 1] },
+  ],
+}
+const water = [
+  { n: '01', t: 'Cubierta', d: 'La ola y las cubiertas verdes recogen la lluvia.' },
+  { n: '02', t: 'Canales', d: 'El agua baja por canales con turbinas que generan electricidad.' },
+  { n: '03', t: 'Tanque', d: 'Se almacena en un tanque de reserva.' },
+  { n: '04', t: 'Huerta', d: 'Riega los cultivos de la huerta estudiantil.' },
+]
+const species = [
+  { t: 'Árboles', items: ['Limonero', 'Olivo', 'Arce japonés'] },
+  { t: 'Arbustos', items: ['Buganvilla', 'Madreselva', 'Plumbago', 'Jazmín'] },
+  { t: 'Aromáticas', items: ['Lavanda', 'Albahaca', 'Romero', 'Tomillo', 'Menta'] },
+  { t: 'Hortalizas', items: ['Brócoli', 'Coliflor', 'Espinaca', 'Zanahoria', 'Cebolla', 'Tomate', 'Calabacín'] },
+  { t: 'Frutas', items: ['Fresas', 'Limones', 'Naranjas', 'Aguacates'] },
+]
+---
+
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Instituto Educativo de Alta Complejidad con Énfasis Ambiental, sede La Villa. Proyecto arquitectónico: tres bloques académicos, una cubierta ondulada deportiva, un domo y una huerta estudiantil. Concepto de PagX Studio." />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preload" href="/villa/d-plate.webp" as="image" media="(min-aspect-ratio: 9/10)" />
+  <link rel="preload" href="/villa/m-plate.webp" as="image" media="(max-aspect-ratio: 9/10)" />
+  <title>Instituto La Villa · Proyecto arquitectónico</title>
+  <script is:inline>
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.dataset.tier = 'static'
+  </script>
+</head>
+<body>
+  <!-- loader: the lot is drawn as the assets arrive, then fills pink like the sheet's location map -->
+  <div class="v-loader" data-loader aria-hidden="true">
+    <svg viewBox="0 0 192 100" class="v-loader-lot"><rect x="1" y="1" width="190" height="98" pathLength="1" data-lot /></svg>
+    <p class="v-loader-n"><span data-pct>000</span></p>
+    <p class="v-loader-t">Lote 18.903 m²</p>
+  </div>
+
+  <div class="v-cursor" data-cursor aria-hidden="true"><span></span></div>
+
+  <header class="v-nav" data-nav>
+    <a class="v-mark" href="#top" aria-label="Instituto La Villa, inicio"><b>IE</b> La Villa</a>
+    <nav aria-label="Principal">
+      <a href="#proyecto">Proyecto</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#programa">Programa</a>
+      <a href="#ambiente">Ambiente</a>
+      <a href="#cierre">Créditos</a>
+    </nav>
+    <p class="v-phase">Pre-anteproyecto · 2024</p>
+  </header>
+
+  <main id="top">
+    <!-- 1 · HERO ------------------------------------------------------------------------------------------ -->
+    <section class="v-hero" data-hero>
+      <canvas class="v-canvas" data-scene aria-hidden="true"></canvas>
+      <picture class="v-plate" aria-hidden="true">
+        <source media="(max-aspect-ratio: 9/10)" srcset="/villa/m-plate.webp" />
+        <img src="/villa/d-plate.webp" alt="" decoding="async" />
+      </picture>
+      <h1 class="v-title" aria-label="Instituto La Villa, Instituto Educativo de Alta Complejidad con Énfasis Ambiental">
+        <span class="v-title-a" aria-hidden="true">Instituto</span>
+        <span class="v-title-b" aria-hidden="true">La Villa</span>
+      </h1>
+      <picture class="v-front" aria-hidden="true">
+        <source media="(max-aspect-ratio: 9/10)" srcset="/villa/m-front.webp" />
+        <img data-front src="/villa/d-front.webp" alt="" decoding="async" fetchpriority="high" />
+      </picture>
+      <div class="v-hero-top">
+        <p class="v-tag">Instituto Educativo de Alta Complejidad<br />con Énfasis Ambiental</p>
+        <p class="v-tag v-tag-r">IE Alfonso Jaramillo Gutiérrez<br />Sede La Villa</p>
+      </div>
+      <p class="v-scroll" aria-hidden="true"><span></span>Recorrer el proyecto</p>
+    </section>
+
+    <!-- 2 · PROYECTO: the brief in one paragraph + its numbers ----------------------------------------------- -->
+    <section class="v-proyecto" id="proyecto">
+      <div class="v-grid">
+        <p class="v-label">01 · Concepto de diseño</p>
+        <h2 class="v-h2" data-split>Una escuela que crece del lote y le devuelve verde a la ciudad.</h2>
+        <div class="v-proyecto-copy" data-fade>
+          <p>El nuevo instituto se levanta en la actual Institución Educativa Alfonso Jaramillo Gutiérrez, sede La Villa. Propone un entorno educativo integral: aulas amplias, laboratorios, terrazas y plazas, espacios para el arte y zonas verdes que promueven el bienestar de los estudiantes.</p>
+          <p>La oferta va desde preescolar hasta grado once, con un enfoque especial en la sostenibilidad ambiental que se materializa en una huerta estudiantil.</p>
+        </div>
+      </div>
+      <ul class="v-stats">
+        {stats.map((s) => (
+          <li data-stat>
+            <b><span data-count={s.n}>{s.f}</span>{s.u && <small>{s.u}</small>}</b>
+            <span>{s.l}</span>
+          </li>
+        ))}
+      </ul>
+      <figure class="v-wide" data-wide>
+        <img src="/villa/ext.webp" alt="La fachada sur del bloque académico: quiebrasoles blancos verticales en toda la altura, junto a la calle arborizada" loading="lazy" decoding="async" width="1920" height="1080" />
+        <figcaption><span>Exterior</span> Fachada sur del bloque académico, quiebrasoles verticales.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 3 · PROCESO (wow): the lot becomes the school ----------------------------------------------------- -->
+    <section class="v-proceso" id="proceso" data-proceso>
+      <div class="v-proceso-stage">
+        <div class="v-seq-wrap">
+          <canvas class="v-seq" data-seq aria-hidden="true"></canvas>
+          <img class="v-seq-static" src="/villa/seq-d/119.webp" alt="El proyecto completo visto desde el aire: los bloques académicos, la cubierta ondulada, el domo y la cancha" loading="lazy" decoding="async" />
+          <div class="v-pins" aria-hidden="true">
+            {labels.map((l) => <span class="v-pin" data-pin={l.k} style={`--c:${l.c}`}><i></i><b>{l.t}</b></span>)}
+          </div>
+        </div>
+        <div class="v-proceso-copy">
+          <p class="v-label">02 · Proceso de diseño</p>
+          <ol class="v-steps">
+            {steps.map((s, i) => (
+              <li data-step={i}><span>{s.n}</span><h3>{s.t}</h3><p>{s.d}</p></li>
+            ))}
+          </ol>
+        </div>
+        <div class="v-proceso-bar" aria-hidden="true"><span data-bar></span></div>
+      </div>
+    </section>
+
+    <!-- 4 · PROGRAMA: the plan from above, each zone lights its block ------------------------------------- -->
+    <section class="v-programa" id="programa" data-programa>
+      <div class="v-grid">
+        <p class="v-label">03 · Zonificación y programa</p>
+        <h2 class="v-h2" data-split>Seis zonas, un recorrido.</h2>
+        <p class="v-programa-d" data-fade>Cada zona se ubica según su uso: lo académico rodea el patio, lo deportivo se abre a la ciudad y lo cultural queda disponible para la comunidad fuera del horario escolar.</p>
+      </div>
+      <div class="v-plan-wrap">
+        <div class="v-plan" data-plan>
+          <img src="/villa/top.webp" alt="Planta del proyecto vista desde arriba: dos barras académicas, el bloque administrativo, la huerta en el patio, la cubierta ondulada sobre las canchas, la cancha de fútbol, el domo y el parqueadero" loading="lazy" decoding="async" width="1920" height="1080" />
+          <svg class="v-plan-zones" viewBox="0 0 100 56.25" preserveAspectRatio="none" aria-hidden="true">
+            {zones.map((z) => z.r.map((r) => z.round
+              ? <ellipse data-zone-shape={z.k} cx={r.x + r.w / 2} cy={(r.y + r.h / 2) * 0.5625} rx={r.w / 2} ry={(r.h / 2) * 0.5625} style={`--c:${z.c}`} />
+              : <rect data-zone-shape={z.k} x={r.x} y={r.y * 0.5625} width={r.w} height={r.h * 0.5625} style={`--c:${z.c}`} />))}
+          </svg>
+          <span class="v-north" aria-hidden="true">N ↑</span>
+        </div>
+        <div class="v-zones" role="group" aria-label="Zonas del programa">
+          {zones.map((z, i) => (
+            <div class="v-zone">
+              <button type="button" data-zone={z.k} aria-pressed={i === 0 ? 'true' : 'false'} aria-controls={`z-${z.k}`} style={`--c:${z.c}`}>
+                <i aria-hidden="true"></i><span>{z.t}</span><em aria-hidden="true">{String(i + 1).padStart(2, '0')}</em>
+              </button>
+              <ul id={`z-${z.k}`} class="v-zone-items">{z.items.map((t) => <li>{t}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · AMBIENTE: four ecosystem services ------------------------------------------------------------ -->
+    <section class="v-ambiente" id="ambiente" data-ambiente>
+      <div class="v-ambiente-pin">
+        <div class="v-ambiente-head">
+          <p class="v-label">04 · Servicios ecosistémicos</p>
+          <h2 class="v-h2" data-split>Un edificio que también hace de ecosistema.</h2>
+        </div>
+        <div class="v-pillars" data-pillars>
+          {pillars.map((p) => (
+            <article class="v-pillar" style={`--c:${p.c}`}>
+              <span class="v-pillar-n">{p.n}</span>
+              <h3>{p.t}</h3>
+              <dl>
+                <dt>Qué</dt><dd>{p.what}</dd>
+                <dt>Cómo</dt><dd>{p.how}</dd>
+                <dt>Por qué</dt><dd>{p.why}</dd>
+              </dl>
+            </article>
+          ))}
+          <figure class="v-pillar v-pillar-img">
+            <img src="/villa/domo.webp" alt="El domo geodésico de vidrio de la biblioteca, bajo el borde de la cubierta ondulada" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+      <div class="v-table-wrap" data-table>
+        <table class="v-table">
+          <caption class="v-label">Ecoproductividad · servicio ecosistémico por estrategia</caption>
+          <thead><tr><th scope="col">Servicio</th>{table.cols.map((c) => <th scope="col">{c}</th>)}</tr></thead>
+          <tbody>
+            {table.rows.map((r) => (
+              <tr>
+                <th scope="row">{r.t}<small>{r.d}</small></th>
+                {r.x.map((x) => <td>{x ? <span class="v-x" data-x aria-label="Sí">×</span> : <span class="sr-only">No</span>}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 6 · AGUA: rainwater, a technical drawing that fills with the scroll ------------------------------ -->
+    <section class="v-agua" id="agua" data-agua>
+      <figure class="v-agua-img">
+        <img src="/villa/int.webp" alt="Bajo la cubierta ondulada: canchas múltiples, columnas blancas, graderías y el domo al fondo" loading="lazy" decoding="async" />
+      </figure>
+      <div class="v-agua-copy">
+        <p class="v-label">05 · Recolección de aguas lluvias</p>
+        <h2 class="v-h2" data-split>La lluvia riega la huerta y enciende la luz.</h2>
+        <svg class="v-agua-svg" viewBox="0 0 400 220" aria-hidden="true">
+          <path class="base" d="M10 70 C 70 20, 120 120, 190 60 S 300 40, 330 70" />
+          <path class="base" d="M330 70 V 150" /><circle class="base" cx="330" cy="120" r="12" />
+          <rect class="base" x="290" y="150" width="80" height="50" />
+          <path class="base" d="M290 185 H 60 V 205" /><path class="base" d="M30 205 H 110" />
+          <path class="flow" data-flow pathLength="1" d="M10 70 C 70 20, 120 120, 190 60 S 300 40, 330 70 V 150 M330 175 H 290 M290 185 H 60 V 205" />
+          <g class="v-agua-lbl"><text x="10" y="52">Cubierta</text><text x="348" y="124">Turbina</text><text x="296" y="215">Tanque</text><text x="30" y="198">Huerta</text></g>
+        </svg>
+        <ol class="v-agua-steps">
+          {water.map((w, i) => <li data-wstep={i}><span>{w.n}</span><b>{w.t}</b> {w.d}</li>)}
+        </ol>
+      </div>
+    </section>
+
+    <!-- 7 · HUERTA -------------------------------------------------------------------------------------- -->
+    <section class="v-huerta" id="huerta">
+      <figure class="v-huerta-img" data-reveal>
+        <img src="/villa/huerta.webp" alt="La huerta estudiantil en el patio: bancales elevados con cultivos entre los bloques académicos" loading="lazy" decoding="async" />
+      </figure>
+      <div class="v-grid">
+        <p class="v-label">06 · Reforestación y cultivo</p>
+        <h2 class="v-h2" data-split>La huerta como aula.</h2>
+        <p class="v-huerta-d" data-fade>Las terrazas verdes y la huerta escolar se siembran con especies elegidas para dar fruto, sombra y aroma, y para que los estudiantes aprendan a cuidarlas.</p>
+      </div>
+      <div class="v-species">
+        {species.map((g) => (
+          <div data-species><h3>{g.t}</h3><ul>{g.items.map((t) => <li>{t}</li>)}</ul></div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 8 · CIERRE: dusk + credits ---------------------------------------------------------------------- -->
+    <section class="v-cierre" id="cierre">
+      <div class="v-cierre-img"><img src="/villa/dusk.webp" alt="El proyecto completo al atardecer: el domo y la cubierta ondulada reciben la última luz" loading="lazy" decoding="async" data-dusk /></div>
+      <div class="v-cierre-copy">
+        <h2 class="v-h2 v-h2-xl" data-split>Educar con<br />el entorno.</h2>
+        <dl class="v-credits">
+          <div><dt>Proyecto</dt><dd>Instituto Educativo de Alta Complejidad con Énfasis Ambiental</dd></div>
+          <div><dt>Por</dt><dd>Laura Sofía Gómez<br />Juan Sebastián Giraldo</dd></div>
+          <div><dt>Docentes</dt><dd>Arq. Alejandra Castaño<br />Arq. Víctor Julián Jiménez<br />Arq. Sandra Granada</dd></div>
+          <div><dt>Curso</dt><dd>Proyecto VII · Proyecto arquitectónico de alta complejidad</dd></div>
+          <div><dt>Fase</dt><dd>Pre-anteproyecto · 15/02/2024</dd></div>
+        </dl>
+        <a class="v-btn" href="/conceptos/" data-magnet><span>Volver a Conceptos</span><i aria-hidden="true">↗</i></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="v-foot">
+    <p>Concepto de PagX Studio. Proyecto académico; modelo e imágenes recreados en 3D a partir de la lámina del proyecto.</p>
+    <p>Árboles: Poly Haven (CC0).</p>
+  </footer>
+</body>
+</html>
+
+<script>
+  import { createClock, gsap, ScrollTrigger } from '@pagx/motion'
+  import { SplitText } from 'gsap/SplitText'
+  import { mountScene } from '../../scripts/villa'
+  import { mountSections } from '../../scripts/villa-sections'
+
+  gsap.registerPlugin(SplitText)
+  const root = document.documentElement
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
+  const loader = document.querySelector<HTMLElement>('[data-loader]')!
+  const lot = loader.querySelector<SVGRectElement>('[data-lot]')!
+  const pct = loader.querySelector<HTMLElement>('[data-pct]')!
+  let shown = 0, target = 0
+
+  // the lot outline is drawn as the assets arrive
+  const setP = (p: number) => {
+    lot.style.strokeDashoffset = String(1 - p)
+    pct.textContent = String(Math.round(p * 100)).padStart(3, '0')
+  }
+  const clock = createClock({ smooth: !reduced, lerp: 0.09 })
+  clock.lenis?.stop()
+  const offLoad = clock.add(() => { shown += (target - shown) * 0.08; setP(shown) })
+  const reveal = () => {
+    target = 1
+    setTimeout(() => { offLoad(); setP(1); root.classList.add('is-ready'); clock.lenis?.start(); ScrollTrigger.refresh() }, 700)
+  }
+
+  // the title rises line by line once the aerial is in
+  const split = new SplitText('.v-title span', { type: 'chars', mask: 'chars' })
+  gsap.set(split.chars, { yPercent: reduced ? 0 : 110 })
+  const intro = () => {
+    if (!reduced) gsap.to(split.chars, { yPercent: 0, duration: 1.5, ease: 'expo.out', stagger: 0.035, delay: 0.55 })
+  }
+
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-scene]')!
+  const front = document.querySelector<HTMLImageElement>('[data-front]')!
+  const frontReady = front.decode().catch(() => {})
+  const go = () => frontReady.then(() => { reveal(); intro() })
+  if (root.dataset.tier === 'static') go()
+  else {
+    mountScene(canvas, clock.add, (p) => (target = Math.max(target, p * 0.95)))
+      .then((s) => { if (!s) root.dataset.tier = 'static' })
+      .catch(() => { root.dataset.tier = 'static' })
+      .finally(go)
+  }
+
+  mountSections({ add: clock.add, reduced })
+</script>

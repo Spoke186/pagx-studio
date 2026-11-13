@@ -1,0 +1,70 @@
+<main id="main">
+<!-- 01 · Hero: Casa Niebla at blue hour, a locked-off loop where only the mist moves (#74) -->
+<section id="top" class="hero">
+<h1 class="sr-only">Casa Niebla, a hillside house by PAGX Architecture</h1>
+<div class="hero-stage" aria-hidden="true">
+<picture class="h-layer h-bg">
+<source media="(max-aspect-ratio: 1/1)" srcset="/media/hero-m.webp">
+<img src="/media/hero-d.webp" alt="" fetchpriority="high">
+</picture>
+<video class="h-layer h-vid" muted="" loop="" playsinline="" preload="none" data-d="/media/hero-
+</video>
+<p class="h-word">Niebla</p>
+</div>
+<div class="hero-shade" aria-hidden="true">
+</div>
+<div class="hero-copy">
+<p class="hero-body">Houses for steep ground, wet forests and long evenings. One studio from the
+<div class="hero-cta">
+<a class="btn btn-light" href="#contact">
+<span>Start a project</span>
+<svg viewBox="0 0 20 12" aria-hidden="true">
+<path d="M0 6h18M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.2">
+</path>
+</svg>
+<a class="link" href="#build">Stay until dark</a>
+</div>
+</div>
+<p class="hero-cap">
+<span>Casa Niebla</span>
+<span>Hillside house, 410 m²</span>
+<span>Concept, 2026</span>
+</section>
+<!-- 02 · Statement -->
+<section class="statement">
+<h2 class="display split">
+<span>We start with the ground,</span>
+<span>not the drawing.</span>
+</h2>
+<div class="st-side">
+<p class="lead">Before a single line, we walk the site at three times of day and dig two test pi
+<ul class="facts">
+<strong class="display">38</strong>
+<span>houses finished</span>
+</li>
+<strong class="display">11</strong>
+<span>years on hillsides</span>
+</li>
+<strong class="display">1</strong>
+<span>team, from survey to keys</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- 03 · Dusk: the one scroll-scrubbed moment. The same house from grey afternoon to blue hour,
+<section id="build" class="build" aria-label="Casa Niebla from afternoon to dark">
+<div class="b-pin">
+<canvas id="seq" class="seq" aria-hidden="true">
+</canvas>
+<img class="seq-fallback" src="/seq/d/f120.webp" alt="Casa Niebla at blue hour, every light on" 
+<div class="b-shade" aria-hidden="true">
+</div>
+<ol class="chapters">
+<li class="chapter">
+<span class="num">01</span>
+<h2 class="display">4:10 pm</h2>
+<p>Grey light, wet grass. The plinth is set into the slope, not on it.</p>
+</li>
+<li class="chapter">
+<span class="num">02</span>
+<h2 class="display">5:05 pm</h2>

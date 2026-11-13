@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- PagX orbital mark (marca/brandkit/logo): orbit arcs, glowing ring, dark core, horizon line -->
+  <defs>
+    <radialGradient id="g" cx="32" cy="35" r="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0.62" stop-color="#9a9a9a" stop-opacity="0"/>
+      <stop offset="0.72" stop-color="#b8b8b8"/>
+      <stop offset="1" stop-color="#b8b8b8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="h" x1="0" x2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.5"/>
+      <stop offset="0.5" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0.5"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#000"/>
+  <path d="M6 33a26 26 0 0 1 52 0" fill="none" stroke="#d9d9d9" stroke-width="1" opacity="0.7"/>
+  <path d="M9.5 33a22.5 22.5 0 0 1 45 0" fill="none" stroke="#e6e6e6" stroke-width="1.2" opacity="0.85"/>
+  <circle cx="32" cy="35" r="20" fill="url(#g)"/>
+  <circle cx="32" cy="35" r="13.5" fill="#070912" stroke="#8a8a8a" stroke-width="1"/>
+  <rect x="4" y="31.9" width="56" height="2.2" rx="1.1" fill="url(#h)"/>
+</svg>

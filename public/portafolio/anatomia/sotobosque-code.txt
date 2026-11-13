@@ -1,0 +1,70 @@
+<main id="top">
+<!-- 1 · HERO ----------------------------------------------------------------------------------
+<section class="sb-hero" data-hero="" data-hour="17:40|El claro">
+<canvas class="sb-canvas" data-forest="" aria-hidden="true">
+</canvas>
+<!-- the title lives between the forest (canvas) and the front layer (bottle + rock), like a wor
+<h1 class="sb-title" aria-label="Sotobosque, perfumería botánica">
+<span class="sb-title-a" aria-hidden="true" aria-label="SOTO">
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+</span>
+<span class="sb-title-b" aria-hidden="true" aria-label="bosque">
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+</span>
+</h1>
+<picture class="sb-front" aria-hidden="true">
+<source media="(max-aspect-ratio: 9/10)" srcset="/sotobosque/m-front.webp">
+<img data-front="" src="/sotobosque/d-front.webp" alt="" decoding="async" fetchpriority="high">
+</picture>
+<div class="sb-ring" aria-hidden="true">
+</div>
+<div class="sb-vignette" aria-hidden="true">
+</div>
+<div class="sb-intro">
+<p class="sb-eyebrow">Perfumería botánica · Colección I</p>
+<p class="sb-lede">Fragancias destiladas del suelo del bosque. Musgo húmedo, resina tibia y la l
+<a class="sb-btn" href="#coleccion" data-magnet="">
+<span>Descubrir la colección</span>
+<i aria-hidden="true">↗</i>
+</div>
+<aside class="sb-spec" aria-label="Fragancia destacada">
+<p class="sb-spec-n">01 / 04</p>
+<p class="sb-spec-t">Musgo <em>01</em>
+<p class="sb-spec-d">Musgo de roble, hoja de higuera y vetiver ahumado.</p>
+<p class="sb-spec-p">Eau de parfum · 50 ml · $ 480.000</p>
+</aside>
+<p class="sb-scroll" aria-hidden="true">
+<span>
+</span>Desliza para entrar al bosque</p>
+</section>
+<!-- 2 · ANATOMÍA: the camera walks past each note to the bottle, the notes rise layer by layer 
+<section class="sb-notes" id="notas" data-notes="" data-hour="18:05|Bajo los helechos">
+<div class="sb-notes-stage">

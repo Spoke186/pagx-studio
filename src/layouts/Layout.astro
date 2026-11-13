@@ -1,0 +1,60 @@
+---
+import { ClientRouter } from 'astro:transitions'
+import hanken from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url'
+import '@fontsource-variable/hanken-grotesk/wght.css'
+import '../styles/global.css'
+import type { Lang } from '../i18n'
+
+interface Props {
+  lang: Lang
+  title: string
+  description: string
+  alternate: string
+  /** pages that only work in one theme (the portfolio's film is dark) */
+  theme?: 'light' | 'dark'
+}
+
+const { lang, title, description, alternate, theme } = Astro.props
+const canonical = new URL(Astro.url.pathname, Astro.site)
+const og = new URL('/og.png', Astro.site)
+---
+
+<html lang={lang} class="no-js" data-force-theme={theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5f2ec" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f0e0d" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={lang === 'es' ? 'en' : 'es'} href={new URL(alternate, Astro.site)} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href={hanken} as="font" type="font/woff2" crossorigin />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={og} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+    <script is:inline>
+      document.documentElement.classList.replace('no-js', 'js')
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.dataset.tier = 'static'
+      // theme before first paint: forced by the page, else the visitor's choice, else the system (DECISIONS #34)
+      window.pagxTheme = (d) => {
+        let saved = null
+        try { saved = localStorage.getItem('theme') } catch {}
+        d.dataset.theme = d.dataset.forceTheme || saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+      }
+      pagxTheme(document.documentElement)
+      if (!window.pagxThemeSwap) {
+        window.pagxThemeSwap = true
+        document.addEventListener('astro:before-swap', (e) => pagxTheme(e.newDocument.documentElement))
+      }
+    </script>
+    <ClientRouter />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <slot />
+  </body>
+</html>

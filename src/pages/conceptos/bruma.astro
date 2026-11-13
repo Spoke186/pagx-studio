@@ -1,0 +1,427 @@
+---
+// Bruma: a live mini-site (PagX concept, fictional brand) shown inside the browser frame on the home page
+// and on its own at /conceptos/bruma/. Hero is a Kling loop where only the fog moves, with the word set behind the dome;
+// the one scroll-scrubbed moment is the valley disappearing into fog at six (frames in public/bruma/seq). DECISIONS #76, #77.
+import { Image } from 'astro:assets'
+import '@fontsource-variable/bricolage-grotesque/standard.css'
+import '@fontsource-variable/instrument-sans/wght.css'
+import hero from '../../../assets/higgsfield/bruma-nA.webp'
+import heroM from '../../../assets/higgsfield/bruma-nA9.webp'
+import clear from '../../../assets/higgsfield/bruma-nB.webp'
+import interior from '../../../assets/higgsfield/bruma-int.webp'
+import tub from '../../../assets/higgsfield/bruma-tub.webp'
+import breakfast from '../../../assets/higgsfield/bruma-desayuno.webp'
+import path from '../../../assets/higgsfield/bruma-path.webp'
+
+const chapters = [
+  { t: '5:20 p. m.', d: 'El valle se ve entero, hasta las fincas del otro lado.' },
+  { t: '5:50 p. m.', d: 'La niebla sube desde el río y se come las laderas.' },
+  { t: '6:15 p. m.', d: 'Ya no hay valle. Se prende el domo.' },
+]
+const days = Array.from({ length: 31 }, (_, i) => i + 1)
+const booked = [3, 4, 17, 18, 25]
+const sel = [10, 11]
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <meta name="description" content="Bruma, glamping de tres domos en Risaralda. Concepto de PagX Studio con una marca ficticia." />
+  <title>Bruma · Concepto de PagX</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+  <!-- Loader: the word on pine; a circle opens from below and reveals the valley -->
+  <div class="loader" data-loader aria-hidden="true">
+    <b class="l-mark">bruma</b>
+    <span class="l-line"><i data-loader-line></i></span>
+  </div>
+
+  <header class="chrome">
+    <a class="badge" href="#top" aria-label="Bruma, glamping en Risaralda: inicio">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <defs><path id="ring" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" /></defs>
+        <text><textPath href="#ring" textLength="236">BRUMA · GLAMPING · RISARALDA ·</textPath></text>
+        <path class="dome" d="M36 58a14 14 0 0 1 28 0zM43 58l7-12 7 12M36 58h28M40 50l10 8 10-8" />
+      </svg>
+    </a>
+    <nav class="menu" aria-label="Bruma">
+      <a class="menu-main" href="#reservar">Reservar una noche</a>
+      <a href="#domo">El domo</a>
+      <a href="#reservar">Contacto</a>
+    </nav>
+  </header>
+  <aside class="rail" aria-hidden="true"><span data-rail-n>01</span><i><b data-rail-fill></b></i><span>05</span></aside>
+
+  <main id="top">
+    <!-- 01 Hero: the loop plays under the word; the dome is cut out of the word so it stands in front -->
+    <section class="hero" data-sec data-hero>
+      <div class="cover land" data-cover>
+        <Image class="poster" src={hero} alt="Un domo iluminado en una terraza sobre un valle lleno de niebla, con palmas de cera, a la hora azul." widths={[1280, 1920, 2560]} sizes="100vw" loading="eager" fetchpriority="high" />
+        <video data-video="/bruma/hero-d.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <svg class="word" viewBox="0 0 1600 900" aria-hidden="true">
+          <mask id="dome"><rect width="1600" height="900" fill="#fff" /><path d="M987 645 A245 250 0 0 1 1477 645 Z" fill="#000" /></mask>
+          <g mask="url(#dome)"><text x="110" y="600">bruma</text></g>
+        </svg>
+      </div>
+      <div class="cover port" data-cover>
+        <Image class="poster" src={heroM} alt="" widths={[720, 1080]} sizes="100vw" loading="eager" />
+        <video data-video="/bruma/hero-m.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <svg class="word" viewBox="0 0 900 1600" aria-hidden="true"><text x="450" y="560" text-anchor="middle">bruma</text></svg>
+      </div>
+      <h1 class="sr-only">Bruma, glamping de tres domos en Risaralda</h1>
+      <p class="hero-line" data-hero-line>Tres domos sobre el cañón del Otún, a una hora de Pereira.</p>
+      <a class="ring-cta" href="#reservar">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="58" /></svg>
+        <span>Ver noches<br />libres</span>
+      </a>
+    </section>
+
+    <!-- 02 Six o'clock: the valley fills with fog as you scroll (Kling time-lapse, frames scrubbed on a canvas) -->
+    <section class="fog" id="seis" data-sec data-fog>
+      <div class="fog-stage">
+        <Image class="fog-still" src={clear} alt="El valle despejado al final de la tarde, con el domo apagado." widths={[1280, 1920]} sizes="100vw" />
+        <canvas data-seq aria-hidden="true"></canvas>
+        <div class="fog-copy">
+          <h2>Todas las tardes, a las seis, el valle desaparece.</h2>
+          <ol>
+            {chapters.map((c, i) => <li class={i === 0 ? 'is-on' : ''} data-chapter><b>{c.t}</b><span>{c.d}</span></li>)}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 Inside -->
+    <section class="inside" id="domo" data-sec data-light>
+      <div class="inside-img" data-rise><Image src={interior} alt="Interior del domo al amanecer: cama king con cobija de lana frente al panel transparente, estufa de leña encendida y niebla afuera." widths={[720, 1200, 1600]} sizes="(max-width: 700px) 100vw, 52vw" /></div>
+      <div class="inside-copy">
+        <h2>Adentro hace calor.</h2>
+        <p>Una estufa de leña, una cama king con cobijas de lana y un panel transparente que da al vacío. Si quieres dejar de mirar, hay cortinas.</p>
+        <dl>
+          <div><dt>Cama</dt><dd>King, sábanas de algodón</dd></div>
+          <div><dt>Baño</dt><dd>Privado, con agua caliente</dd></div>
+          <div><dt>Calor</dt><dd>Estufa de leña, lista al llegar</dd></div>
+          <div><dt>Terraza</dt><dd>Volada sobre el valle, 18 m²</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 04 The tub, full bleed -->
+    <section class="tub" data-sec>
+      <div class="tub-img" data-parallax><Image src={tub} alt="Tina de cedro calentada con leña en la terraza, de noche, con vapor entrando en la niebla." widths={[960, 1600, 2400]} sizes="100vw" /></div>
+      <p class="tub-copy">La tina se calienta con leña. La prendemos a las cinco; a las siete está a 39&nbsp;°C.</p>
+    </section>
+
+    <!-- 05 The path -->
+    <section class="path" data-sec data-light>
+      <p class="path-copy">Cada domo está solo en su pedazo de bosque. Se llega a pie, por un sendero de piedra entre palmas de cera.</p>
+      <div class="path-img" data-rise><Image src={path} alt="Sendero de piedra entre palmas de cera y helechos en la niebla; al fondo brilla un domo." widths={[960, 1600, 2400]} sizes="(max-width: 700px) 100vw, 88vw" /></div>
+    </section>
+
+    <!-- 06 Breakfast + booking -->
+    <section class="book-sec" id="reservar" data-sec data-light>
+      <div class="peek" data-rise><Image src={breakfast} alt="Desayuno en la baranda de la terraza: arepa asada, quesito, fruta y café en taza de barro, con el valle detrás." widths={[480, 900]} sizes="(max-width: 700px) 70vw, 30vw" /></div>
+      <p class="statement">El desayuno va incluido: arepa asada, quesito, fruta y café de la finca de al lado.</p>
+      <div class="book">
+        <div>
+          <p class="price">$ 480.000 <small>la noche, para dos</small></p>
+          <p class="small">Escoges la fecha y confirmas por WhatsApp en dos mensajes.</p>
+          <a class="pill" href="#top">Reservar por WhatsApp</a>
+        </div>
+        <div class="cal" aria-label="Disponibilidad de octubre, Domo Palma">
+          <header><b>Octubre</b><span>Domo Palma</span></header>
+          <div class="grid">
+            {['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((d) => <i>{d}</i>)}
+            <span></span><span></span>
+            {days.map((d) => <span class={booked.includes(d) ? 'x' : sel.includes(d) ? 'sel' : ''}>{d}</span>)}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <b>bruma</b>
+    <p>Concepto de PagX Studio · Bruma es una marca ficticia</p>
+  </footer>
+
+  <!-- Designed notice: it says the honest thing, this is a concept -->
+  <div class="notice" role="dialog" aria-label="Aviso" data-notice hidden>
+    <p>Bruma es una marca ficticia: un concepto de PagX Studio para mostrar cómo podría verse tu glamping.</p>
+    <button type="button" data-notice-close>Entendido</button>
+  </div>
+</body>
+</html>
+
+<style is:global>
+  :root { --pine: #1b2722; --ink: #16201c; --mist: #dfe6e2; --cream: #f2eee6; --amber: #e3a15e; --fog: #8fa39b; --line: rgb(22 32 28 / .16);
+    --display: "Bricolage Grotesque Variable", sans-serif; --sans: "Instrument Sans Variable", sans-serif; color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--pine); }
+  body { font: 400 15px/1.55 var(--sans); color: var(--ink); background: var(--cream); overflow-x: clip; -webkit-font-smoothing: antialiased; }
+  img, video, canvas { display: block; width: 100%; height: 100%; object-fit: cover; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .small { font-size: 14px; max-width: 42ch; }
+  h2, .statement, .tub-copy, .path-copy, .price, .foot b, .l-mark, .word text { font-family: var(--display); font-stretch: 75%; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+  /* loader */
+  .loader { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; background: var(--pine); color: var(--mist); --r: 0px;
+    mask: radial-gradient(circle at 50% 100%, transparent var(--r), #000 calc(var(--r) + 1px)); -webkit-mask: radial-gradient(circle at 50% 100%, transparent var(--r), #000 calc(var(--r) + 1px)); }
+  .l-mark { font-size: clamp(64px, 12vw, 150px); font-weight: 250; line-height: .8; letter-spacing: -.02em; }
+  .l-line { position: absolute; left: 50%; bottom: 8vh; width: 1px; height: 10vh; background: rgb(223 230 226 / .2); }
+  .l-line i { position: absolute; inset: 0; background: var(--mist); transform-origin: top; transform: scaleY(0); }
+  html.no-loader .loader { display: none; }
+
+  /* chrome */
+  .chrome, .rail { color: #fff; transition: color .5s; }
+  html.on-light .chrome, html.on-light .rail { color: var(--ink); }
+  .chrome { position: fixed; inset: 0 0 auto; z-index: 20; display: flex; justify-content: space-between; align-items: start; padding: 16px 20px; pointer-events: none; }
+  .chrome a { pointer-events: auto; }
+  .badge svg { width: 74px; height: 74px; animation: spin 24s linear infinite; }
+  .badge text { font: 500 8.4px var(--sans); letter-spacing: .12em; fill: currentColor; }
+  .badge .dome { fill: none; stroke: currentColor; stroke-width: 1.2; transform-origin: 50px 52px; animation: spin 24s linear infinite reverse; }
+  @keyframes spin { to { rotate: 360deg; } }
+  .menu { display: grid; justify-items: end; gap: 2px; text-align: right; font-size: 13px; }
+  .menu a { position: relative; padding: 2px 0; }
+  .menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .5s cubic-bezier(.16, 1, .3, 1); }
+  .menu a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .menu-main { font: 500 19px/1.1 var(--display); font-stretch: 75%; margin-bottom: 6px; }
+  .rail { position: fixed; left: 20px; top: 50%; translate: 0 -50%; z-index: 20; display: grid; justify-items: center; gap: 10px; font-size: 10px; font-variant-numeric: tabular-nums; }
+  .rail i { position: relative; width: 1px; height: 90px; background: currentColor; opacity: .6; }
+  .rail b { position: absolute; inset: 0; background: currentColor; transform-origin: top; transform: scaleY(.2); }
+
+  /* hero: two 16:9 / 9:16 boxes that cover the viewport, so the word and the dome mask stay locked to the footage */
+  .hero { position: relative; height: 100svh; overflow: hidden; color: #fff; background: var(--pine); }
+  .cover { position: absolute; left: 50%; top: 50%; translate: -50% -50%; will-change: transform; }
+  .cover.land { width: max(100%, 100svh * 16 / 9); aspect-ratio: 16 / 9; }
+  .cover.port { display: none; width: max(100%, 100svh * 9 / 16); aspect-ratio: 9 / 16; }
+  @media (max-aspect-ratio: 4 / 5) { .cover.land { display: none; } .cover.port { display: block; } }
+  .cover > * { position: absolute; inset: 0; }
+  .cover video { opacity: 0; transition: opacity 1.2s; }
+  .cover video.is-on { opacity: 1; }
+  .word { overflow: visible; }
+  .word text { font-size: 520px; font-stretch: 100%; font-weight: 260; letter-spacing: -.02em; fill: #f4f1ea; }
+  .port .word text { font-size: 250px; }
+  .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgb(10 16 14 / .35), transparent 30%, transparent 72%, rgb(10 16 14 / .55)); }
+  .hero-line { position: absolute; z-index: 3; left: 6vw; bottom: 6svh; max-width: 26ch; font-size: clamp(15px, 1.3vw, 18px); line-height: 1.4; }
+  .ring-cta { position: absolute; z-index: 3; right: 6vw; bottom: 5svh; width: 104px; height: 104px; display: grid; place-items: center; text-align: center; font-size: 12px; line-height: 1.3; }
+  .ring-cta svg { position: absolute; inset: 0; fill: none; stroke: #fff; stroke-width: 1; stroke-dasharray: 365; stroke-dashoffset: 365; animation: draw 2s 2.6s cubic-bezier(.16, 1, .3, 1) forwards; transition: scale .5s cubic-bezier(.16, 1, .3, 1); }
+  .ring-cta:hover svg { stroke: var(--amber); scale: 1.08; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  /* six o'clock: sticky stage, canvas over the clear-afternoon still */
+  .fog { position: relative; height: 380svh; background: var(--pine); }
+  .fog-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; color: #fff; }
+  .fog-stage > img, .fog-stage canvas { position: absolute; inset: 0; }
+  .fog-stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(8 12 12 / .55), transparent 55%); pointer-events: none; }
+  .fog-copy { position: absolute; z-index: 1; left: 8vw; top: 50%; translate: 0 -50%; width: min(520px, 84vw); display: grid; gap: 6svh; }
+  .fog-copy h2 { font-size: clamp(36px, 4.6vw, 72px); font-weight: 300; line-height: .95; letter-spacing: -.01em; }
+  .fog-copy ol { list-style: none; padding: 0; display: grid; gap: 14px; }
+  .fog-copy li { display: grid; grid-template-columns: 7.5em 1fr; gap: 16px; padding-top: 12px; border-top: 1px solid rgb(255 255 255 / .25); opacity: .4; transition: opacity .6s; }
+  .fog-copy li.is-on { opacity: 1; }
+  .fog-copy li b { font-weight: 500; font-variant-numeric: tabular-nums; }
+
+  /* inside */
+  .inside { background: var(--mist); padding: 18svh 6vw; display: grid; grid-template-columns: 1.05fr 1fr; gap: 6vw; align-items: end; }
+  .inside-img { aspect-ratio: 4 / 5; overflow: hidden; }
+  .inside-copy { max-width: 460px; }
+  .inside-copy h2 { font-size: clamp(44px, 6vw, 96px); font-weight: 300; line-height: .9; letter-spacing: -.015em; }
+  .inside-copy p { margin: 28px 0 40px; font-size: 17px; color: #33413b; }
+  dl div { display: grid; grid-template-columns: 6.5em 1fr; padding: 12px 0; border-top: 1px solid var(--line); font-size: 15px; }
+  dt { color: #5c6a64; }
+
+  /* tub */
+  .tub { position: relative; height: 120svh; overflow: hidden; color: #fff; display: grid; align-items: end; padding: 0 6vw 12svh; }
+  .tub-img { position: absolute; inset: -10% 0; will-change: transform; }
+  .tub::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgb(8 10 14 / .7), transparent 50%); }
+  .tub-copy { position: relative; z-index: 1; max-width: 17ch; font-size: clamp(34px, 4.8vw, 76px); font-weight: 300; line-height: .95; letter-spacing: -.01em; }
+
+  /* path */
+  .path { background: var(--cream); padding: 18svh 0 0 6vw; display: grid; gap: 8svh; }
+  .path-copy { max-width: 22ch; font-size: clamp(32px, 4.2vw, 64px); font-weight: 300; line-height: .98; letter-spacing: -.01em; }
+  .path-img { margin-left: 6vw; aspect-ratio: 16 / 9; overflow: hidden; }
+
+  /* breakfast + booking */
+  .book-sec { position: relative; background: var(--cream); padding: 18svh 8vw 14svh; display: grid; gap: 8svh; }
+  .peek { width: min(30vw, 420px); aspect-ratio: 4 / 5; overflow: hidden; justify-self: end; }
+  .statement { max-width: 20ch; margin-top: -24svh; font-size: clamp(30px, 3.8vw, 56px); font-weight: 300; line-height: 1; }
+  .book { display: grid; grid-template-columns: 1fr 1.1fr; gap: 6vw; width: min(100%, 980px); align-items: center; }
+  .price { font-size: clamp(32px, 3.4vw, 48px); font-weight: 400; }
+  .price small { font: 400 13px var(--sans); color: #5c6a64; }
+  .book .small { margin: 10px 0 22px; color: #3d4a45; }
+  .pill { display: inline-block; padding: 14px 24px; border-radius: 999px; background: var(--pine); color: var(--mist); font-size: 14px; font-weight: 600; transition: background-color .4s, scale .4s cubic-bezier(.16, 1, .3, 1); }
+  .pill:hover { background: #2c3f37; scale: 1.03; }
+  .pill:active { scale: .97; }
+  .cal { padding: 24px; border-radius: 18px; background: #fff; box-shadow: 0 30px 60px -40px rgb(22 32 28 / .5), inset 0 0 0 1px var(--line); }
+  .cal header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+  .cal header b { font: 500 24px var(--display); font-stretch: 75%; } .cal header span { font-size: 12px; color: #5c6a64; }
+  .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; font-size: 13px; }
+  .grid i { font-style: normal; font-size: 10px; color: #6f7b75; padding-bottom: 4px; }
+  .grid span { padding: 7px 0; border-radius: 8px; }
+  .grid span:not(:empty):not(.x) { background: var(--mist); }
+  .grid .x { color: #69736e; text-decoration: line-through; }
+  .grid .sel { background: var(--amber) !important; color: var(--ink); font-weight: 600; }
+
+  .foot { background: var(--pine); color: var(--mist); padding: 12svh 6vw 6svh; display: grid; gap: 6svh; overflow: hidden; }
+  .foot b { font-size: clamp(110px, 25vw, 400px); font-stretch: 100%; font-weight: 230; line-height: .78; letter-spacing: -.03em; }
+  .foot p { font-size: 13px; color: var(--fog); }
+
+  /* notice */
+  .notice { position: fixed; right: 16px; bottom: 16px; z-index: 30; width: min(260px, calc(100vw - 32px)); padding: 16px 18px 14px; background: var(--cream); color: var(--ink); box-shadow: 0 20px 50px -20px rgb(0 0 0 / .45); }
+  .notice[hidden] { display: none; }
+  .notice p { margin-bottom: 12px; font-size: 13px; line-height: 1.45; }
+  .notice button { font-size: 13px; font-weight: 600; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+
+  /* small viewports (the frame on a phone, or Bruma on a phone) */
+  @media (max-width: 700px) {
+    .badge svg { width: 58px; height: 58px; }
+    .menu a:not(.menu-main) { display: none; }
+    .menu-main { font-size: 16px; }
+    .rail { display: none; }
+    .ring-cta { width: 86px; height: 86px; font-size: 11px; }
+    .hero-line { max-width: 19ch; }
+    .fog-copy { top: auto; bottom: 7svh; translate: none; gap: 3svh; }
+    .fog-stage::after { background: linear-gradient(0deg, rgb(8 12 12 / .75), transparent 60%); }
+    .fog-copy li { grid-template-columns: 6.5em 1fr; font-size: 14px; }
+    .inside { grid-template-columns: 1fr; padding: 12svh 6vw; }
+    .path-img { margin-left: 0; aspect-ratio: 4 / 5; }
+    .peek { width: 70vw; }
+    .statement { margin-top: 0; }
+    .book { grid-template-columns: 1fr; }
+    .notice { width: 220px; right: 10px; bottom: auto; top: 84px; padding: 12px 14px 10px; }
+    .notice p { font-size: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .ring-cta svg { stroke-dashoffset: 0; }
+  }
+</style>
+
+<script>
+  import { createClock, gsap, ScrollTrigger } from '@pagx/motion'
+
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches
+  // static tier: no loop and no sequence on reduced motion, Save-Data or very small devices
+  const lite = still || (navigator as any).connection?.saveData || ((navigator as any).deviceMemory ?? 8) < 3
+  const html = document.documentElement
+  const clock = createClock({ smooth: !still })
+  const portrait = () => matchMedia('(max-aspect-ratio: 4 / 5)').matches
+
+  // loader: line grows, then a circle opens from below
+  const loader = document.querySelector<HTMLElement>('[data-loader]')!
+  if (still) html.classList.add('no-loader')
+  else {
+    document.fonts.ready.then(() =>
+      gsap.timeline({ onComplete: () => html.classList.add('no-loader') })
+        .from('.l-mark', { autoAlpha: 0, y: 20, duration: 0.9, ease: 'expo.out' })
+        .to('[data-loader-line]', { scaleY: 1, duration: 0.9, ease: 'power2.inOut' }, '<0.2')
+        .to(loader, { '--r': '160vmax', duration: 1.4, ease: 'expo.inOut' }, '+=0.1')
+        .from('[data-cover]', { scale: 1.2, duration: 2, ease: 'expo.out' }, '<0.3')
+        .from('.word text', { autoAlpha: 0, y: 60, duration: 1.6, ease: 'expo.out' }, '<0.3')
+        .from('[data-hero-line], .ring-cta', { autoAlpha: 0, y: 20, duration: 1, ease: 'expo.out', stagger: 0.1 }, '<0.4'),
+    )
+  }
+
+  // hero loop: only the visible box loads its video, and it fades in over the poster once it can play
+  if (!lite) {
+    const box = document.querySelector(portrait() ? '.cover.port' : '.cover.land')!
+    const v = box.querySelector<HTMLVideoElement>('video')!
+    v.src = v.dataset.video!
+    v.addEventListener('playing', () => v.classList.add('is-on'), { once: true })
+    v.play().catch(() => {})
+  }
+
+  // side rail follows the section
+  const secs = [...document.querySelectorAll<HTMLElement>('[data-sec]')]
+  const railN = document.querySelector('[data-rail-n]')!
+  document.querySelector('.rail span:last-child')!.textContent = String(secs.length).padStart(2, '0')
+  secs.forEach((s, i) =>
+    ScrollTrigger.create({ trigger: s, start: 'top 50%', end: 'bottom 50%', onToggle: (t) => { if (t.isActive) { railN.textContent = String(i + 1).padStart(2, '0'); gsap.to('[data-rail-fill]', { scaleY: (i + 1) / secs.length, duration: 0.8, ease: 'expo.out' }) } } }),
+  )
+  // chrome turns ink over the light sections
+  document.querySelectorAll('[data-light]').forEach((el) =>
+    ScrollTrigger.create({ trigger: el, start: 'top 40px', end: 'bottom 40px', onToggle: (t) => html.classList.toggle('on-light', t.isActive) }),
+  )
+
+  // six o'clock: frames load coarse-to-fine once the section is near, and the scroll picks the frame
+  const SEQ = { d: { dir: '/bruma/seq/d/', count: 120 }, m: { dir: '/bruma/seq/m/', count: 60 } }
+  const chapters = [...document.querySelectorAll<HTMLElement>('[data-chapter]')]
+  const setChapter = (p: number) => {
+    const k = Math.min(chapters.length - 1, Math.floor(p * chapters.length))
+    chapters.forEach((c, i) => c.classList.toggle('is-on', i === k))
+  }
+  const cv = document.querySelector<HTMLCanvasElement>('[data-seq]')!
+  if (lite) cv.remove()
+  else {
+    const g = cv.getContext('2d')!
+    const s = portrait() ? SEQ.m : SEQ.d
+    const imgs: (HTMLImageElement | null)[] = Array(s.count).fill(null)
+    let want = 0, drawn = -1
+    const load = (i: number) => new Promise<void>((res) => {
+      if (imgs[i]) return res()
+      const im = new Image()
+      im.decoding = 'async'
+      im.onload = () => { imgs[i] = im; drawn = -2; res() }
+      im.onerror = () => res()
+      im.src = `${s.dir}f${String(i + 1).padStart(3, '0')}.webp`
+    })
+    const queue = async () => {
+      for (const stride of [16, 8, 4, 2, 1]) {
+        const batch = []
+        for (let i = 0; i < s.count; i += stride) batch.push(load(i))
+        await Promise.all(batch)
+      }
+    }
+    new IntersectionObserver(([e], o) => { if (e.isIntersecting) { queue(); o.disconnect() } }, { rootMargin: '150% 0px' }).observe(cv)
+    const size = () => {
+      const dpr = Math.min(devicePixelRatio || 1, 2)
+      cv.width = Math.round(cv.clientWidth * dpr)
+      cv.height = Math.round(cv.clientHeight * dpr)
+      drawn = -2
+    }
+    addEventListener('resize', size)
+    size()
+    const nearest = (i: number) => {
+      for (let k = 0; k < s.count; k++) {
+        if (imgs[i - k]) return i - k
+        if (imgs[i + k]) return i + k
+      }
+      return -1
+    }
+    clock.add(() => {
+      const i = nearest(want)
+      if (i < 0 || i === drawn) return
+      const im = imgs[i]!, sc = Math.max(cv.width / im.naturalWidth, cv.height / im.naturalHeight)
+      const w = im.naturalWidth * sc, h = im.naturalHeight * sc
+      g.drawImage(im, (cv.width - w) / 2, (cv.height - h) / 2, w, h)
+      drawn = i
+    })
+    ScrollTrigger.create({ trigger: '[data-fog]', start: 'top top', end: 'bottom bottom', onUpdate: (st) => { want = Math.round(st.progress * (s.count - 1)); setChapter(st.progress) } })
+  }
+  if (lite) ScrollTrigger.create({ trigger: '[data-fog]', start: 'top top', end: 'bottom bottom', onUpdate: (st) => setChapter(st.progress) })
+
+  if (!still) {
+    // hero: the word drifts up slower than the footage, so the dome seems to rise through it
+    gsap.to('[data-cover]', { scale: 1.1, ease: 'none', scrollTrigger: { trigger: '[data-hero]', start: 'top top', end: 'bottom top', scrub: true } })
+    gsap.to('.word text', { y: -120, ease: 'none', scrollTrigger: { trigger: '[data-hero]', start: 'top top', end: 'bottom top', scrub: true } })
+    gsap.fromTo('[data-parallax]', { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.tub', start: 'top bottom', end: 'bottom top', scrub: true } })
+    gsap.utils.toArray<HTMLElement>('[data-rise]').forEach((el) =>
+      gsap.from(el, { clipPath: 'inset(18% 0 0 0)', y: 60, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%', once: true } }),
+    )
+    gsap.utils.toArray<HTMLElement>('.inside-copy h2, .tub-copy, .path-copy, .statement').forEach((el) =>
+      gsap.from(el, { yPercent: 30, autoAlpha: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 85%', once: true } }),
+    )
+  }
+
+  // the designed notice; inside the PagX frame the home page already labels the concept, so it stays hidden there
+  const notice = document.querySelector<HTMLElement>('[data-notice]')!
+  if (window.self === window.top) setTimeout(() => { notice.hidden = false; if (!still) gsap.from(notice, { y: 30, autoAlpha: 0, duration: 0.8, ease: 'expo.out' }) }, still ? 0 : 3400)
+  document.querySelector('[data-notice-close]')!.addEventListener('click', () => (notice.hidden = true))
+</script>

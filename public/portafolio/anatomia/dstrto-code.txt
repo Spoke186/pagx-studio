@@ -1,0 +1,70 @@
+<main id="contenido"> <section class="portada portada--encendida" id="inicio" aria-labelledby="p
+</div> <div class="portada__logo logo-letras" role="img" aria-label="DSTRTO Footwear 80. Street 
+<div class="marquesina">
+<div class="marquesina__pista">
+<span class="marquesina__grupo">
+<span>SNEAKERS</span>
+<i>·</i>
+<span>PEOPLE</span>
+<i>·</i>
+<span>CULTURE</span>
+<i>·</i>
+<span>DSTRTO</span>
+<i>·</i>
+<span>SNEAKERS</span>
+<i>·</i>
+<span>PEOPLE</span>
+<i>·</i>
+<span>CULTURE</span>
+<i>·</i>
+<span>DSTRTO</span>
+<i>·</i>
+<span>SNEAKERS</span>
+<i>·</i>
+<span>PEOPLE</span>
+<i>·</i>
+<span>CULTURE</span>
+<i>·</i>
+<span>DSTRTO</span>
+<i>·</i>
+</span>
+<span class="marquesina__grupo">
+<span>SNEAKERS</span>
+<i>·</i>
+<span>PEOPLE</span>
+<i>·</i>
+<span>CULTURE</span>
+<i>·</i>
+<span>DSTRTO</span>
+<i>·</i>
+<span>SNEAKERS</span>
+<i>·</i>
+<span>PEOPLE</span>
+<i>·</i>
+<span>CULTURE</span>
+<i>·</i>
+<span>DSTRTO</span>
+<i>·</i>
+<span>SNEAKERS</span>
+<i>·</i>
+<span>PEOPLE</span>
+<i>·</i>
+<span>CULTURE</span>
+<i>·</i>
+<span>DSTRTO</span>
+<i>·</i>
+</span>
+</div>
+</div>
+</div> <section class="que-es" id="que-es" aria-labelledby="que-es-titular"> <div class="contene
+<span>Todos los estilos.</span>
+</span> <span class="que-es__linea que-es__linea--contorno">
+<span>Cultura callejera.</span>
+</span> <span class="que-es__linea">
+<span>Desde Pereira.</span>
+</span> </h2> <p class="que-es__firma t-marcador" aria-hidden="true">Since Day One</p> <p class=
+</rect> <path d="M17 22l1.5-9 5.5 5 5.5-5 1.5 9z">
+</path> <path d="M24 30v14M15 44h18">
+</path> </svg> <h3 class="beneficio__titulo">Todas las marcas</h3> <p class="beneficio__texto">N
+</rect> <rect x="12" y="10" width="12" height="8">
+</rect> <path d="M28 14h4a3 3 0 0 1 3 3v16a3 3 0 0 0 6 0V20l-4-5">

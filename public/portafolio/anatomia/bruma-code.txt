@@ -1,0 +1,70 @@
+<main id="top">
+<!-- 01 Hero: the loop plays under the word; the dome is cut out of the word so it stands in fro
+<section class="hero" data-sec="" data-hero="">
+<div class="cover land" data-cover="">
+<img src="/_astro/bruma-nA.BGxUqsPh_PBDab.webp" srcset="/_astro/bruma-nA.BGxUqsPh_14NW4q.webp 12
+<video data-video="/bruma/hero-d.mp4" muted="" loop="" playsinline="" preload="none" aria-hidden
+</video>
+<svg class="word" viewBox="0 0 1600 900" aria-hidden="true">
+<mask id="dome">
+<rect width="1600" height="900" fill="#fff">
+</rect>
+<path d="M987 645 A245 250 0 0 1 1477 645 Z" fill="#000">
+</path>
+</mask>
+<g mask="url(#dome)">
+<text x="110" y="600">bruma</text>
+</svg>
+</div>
+<div class="cover port" data-cover="">
+<img src="/_astro/bruma-nA9.DmYEBrEO_Z2j6oe5.webp" srcset="/_astro/bruma-nA9.DmYEBrEO_ZzOqvy.web
+<video data-video="/bruma/hero-m.mp4" muted="" loop="" playsinline="" preload="none" aria-hidden
+</video>
+<svg class="word" viewBox="0 0 900 1600" aria-hidden="true">
+<text x="450" y="560" text-anchor="middle">bruma</text>
+</svg>
+</div>
+<h1 class="sr-only">Bruma, glamping de tres domos en Risaralda</h1>
+<p class="hero-line" data-hero-line="">Tres domos sobre el cañón del Otún, a una hora de Pereira
+<a class="ring-cta" href="#reservar">
+<svg viewBox="0 0 120 120" aria-hidden="true">
+<circle cx="60" cy="60" r="58">
+</circle>
+</svg>
+<span>Ver noches<br>libres</span>
+</section>
+<!-- 02 Six o'clock: the valley fills with fog as you scroll (Kling time-lapse, frames scrubbed 
+<section class="fog" id="seis" data-sec="" data-fog="">
+<div class="fog-stage">
+<img src="/_astro/bruma-nB.DrKsBl-C_ZrUVdy.webp" srcset="/_astro/bruma-nB.DrKsBl-C_ZdICjj.webp 1
+<div class="fog-copy">
+<h2>Todas las tardes, a las seis, el valle desaparece.</h2>
+<li class="is-on" data-chapter="">
+<b>5:20 p. m.</b>
+<span>El valle se ve entero, hasta las fincas del otro lado.</span>
+</li>
+<li class="" data-chapter="">
+<b>5:50 p. m.</b>
+<span>La niebla sube desde el río y se come las laderas.</span>
+</li>
+<li class="" data-chapter="">
+<b>6:15 p. m.</b>
+<span>Ya no hay valle. Se prende el domo.</span>
+</li>
+</ol>
+</div>
+</div>
+</section>
+<!-- 03 Inside -->
+<section class="inside" id="domo" data-sec="" data-light="">
+<div class="inside-img" data-rise="">
+<img src="/_astro/bruma-int.B6fnlq6z_ZrDP6W.webp" srcset="/_astro/bruma-int.B6fnlq6z_ZBxuK.webp 
+</div>
+<div class="inside-copy">
+<h2>Adentro hace calor.</h2>
+<p>Una estufa de leña, una cama king con cobijas de lana y un panel transparente que da al vacío
+<div>
+<dt>Cama</dt>
+<dd>King, sábanas de algodón</dd>
+</div>
+<div>

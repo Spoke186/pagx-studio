@@ -1,0 +1,254 @@
+---
+import { existsSync } from 'node:fs'
+import Layout from '../layouts/Layout.astro'
+import Header from './Header.astro'
+import '@fontsource/share-tech-mono/400.css'
+import { dict, whatsappFor, WHATSAPP_NUMBER, INSTAGRAM_URL, LINKEDIN_URL, EMAILS, type Lang } from '../i18n'
+
+interface Props { lang: Lang }
+const t = dict[Astro.props.lang]
+const whatsapp = whatsappFor(Astro.props.lang)
+const c = t.concepts
+const a = t.automations
+const letters = (s: string) => s.split(' ')
+// Concept designs are rendered images; until one exists the frame shows a quiet placeholder.
+const img = (name: string) => (existsSync(`public/concepts/${name}.jpg`) ? `/concepts/${name}.jpg` : null)
+const shots = {
+  architecturePhone: img('architecture-mobile'),
+  before: img('cumbre-before'),
+  cumbrePhone: img('cumbre-mobile'),
+}
+---
+
+<Layout lang={t.lang as Lang} title={t.meta.title} description={t.meta.description} alternate={t.nav.otherHref}>
+  <Header t={t} />
+  <!-- Live 3D (src/scripts/stage.ts): ribbons of code behind the hero; the same code assembles each concept's devices,
+       runs through the automation flow and lights the phone at the end. The poster covers the first paint and the static tier. -->
+  <div class="stage" aria-hidden="true"><canvas data-stage></canvas></div>
+  <div class="gridlines" aria-hidden="true"></div>
+
+  <main id="main">
+    <!-- Hero: ribbons of light drawn with code glyphs behind the title (pin Imagica), specs on top (pin GIRLBOSS) -->
+    <section class="hero" data-act="ribbons">
+      <div class="wrap hero-inner">
+      <div class="hero-top reveal">
+        <p class="label">{t.hero.tag} <span aria-hidden="true">· 4.81°N 75.69°W</span></p>
+        <ul class="specs">
+          {t.hero.specs.map((s) => <li><b>{s.big}</b><span>{s.small}</span></li>)}
+        </ul>
+      </div>
+      <h1 class="display-xl split-letters" aria-label={t.hero.title} data-proximity data-hero-title>
+        {letters(t.hero.title).map((w, i, all) => (
+          <>
+            <span class="w" aria-hidden="true">{[...w].map((ch) => <span class="c">{ch}</span>)}</span>{i < all.length - 1 && ' '}
+          </>
+        ))}
+      </h1>
+      <div class="hero-foot">
+        <p class="hero-sub reveal">{t.hero.sub}</p>
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href={whatsapp} target="_blank" rel="noopener" data-magnetic><span class="btn-label">{t.hero.cta}</span><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></a>
+          <a class="btn btn-secondary" href={t.nav.portfolioHref} data-dive><span class="btn-label">{t.hero.secondary}</span><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></a>
+        </div>
+      </div>
+      <p class="label scroll-cue reveal" aria-hidden="true">{t.hero.scroll} <i></i></p>
+      </div>
+    </section>
+
+    <!-- Concepts: two fictional brands shown as real websites -->
+    <section class="section concepts" id="conceptos" data-section="conceptos" data-act="scan">
+      <div class="wrap concepts-head concepts-open">
+        <p class="label eyebrow"><span>01</span>{c.eyebrow}</p>
+        <h2 class="concepts-title" data-lines>{c.title}</h2>
+        <p class="muted">{c.intro}</p>
+      </div>
+
+      <article class="wrap case case-live" aria-labelledby="case-architecture" data-morph="1">
+        <header class="case-head">
+          <span class="case-n" aria-hidden="true">{c.architecture.n}</span>
+          <h3 class="case-name" id="case-architecture">{c.architecture.name}</h3>
+          <p class="case-kind">{c.architecture.kind}</p>
+        </header>
+        <div class="case-stage">
+          <figure class="browser">
+            <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span>pagxstudio.com/conceptos/architecture</span></div>
+            <!-- PAGX Architecture is its own site (sites/pagx-architecture), copied into public/conceptos/architecture by sync-architecture.sh -->
+            <div class="browser-view">
+              <iframe data-src="/conceptos/architecture/" title={c.architecture.alt} data-scroll-view></iframe>
+            </div>
+            <span class="scroll-hint vapor" aria-hidden="true" data-scroll-hint>{c.scrollHint}</span>
+          </figure>
+          <figure class="phone" data-float>
+            {shots.architecturePhone ? <img src={shots.architecturePhone} alt={c.architecture.altMobile} loading="lazy" /> : <p class="pending">{c.pending}</p>}
+          </figure>
+        </div>
+        <div class="case-body">
+          <p>{c.architecture.text}</p>
+          <ul>{c.architecture.points.map((p) => <li>{p}</li>)}</ul>
+          <span class="concept-tag">{c.label}</span>
+        </div>
+      </article>
+
+      <article class="wrap case case-alt case-live" aria-labelledby="case-cumbre" data-morph="2">
+        <header class="case-head">
+          <span class="case-n" aria-hidden="true">{c.shop.n}</span>
+          <h3 class="case-name" id="case-cumbre">{c.shop.name}</h3>
+          <p class="case-kind">{c.shop.kind}</p>
+        </header>
+        <div class="case-stage">
+          <!-- Cumbre is a live store (src/pages/conceptos/cumbre.astro); "Antes" lays the template store over it -->
+          <figure class="browser compare" data-shop data-mode="compare">
+            <div class="browser-bar"><i></i><i></i><i></i><span aria-hidden="true">pagxstudio.com/conceptos/cumbre</span>
+              <div class="ba" role="group" aria-label={c.shop.slider}>
+                <button type="button" aria-pressed="false" data-ba="before">{c.shop.before}</button>
+                <button type="button" aria-pressed="true" data-ba="compare">{c.shop.compareBtn}</button>
+                <button type="button" aria-pressed="false" data-ba="after">{c.shop.after}</button>
+              </div>
+            </div>
+            <div class="browser-view">
+              <iframe data-src="/conceptos/cumbre/" title={c.shop.altAfter} data-scroll-view></iframe>
+              {shots.before && <img class="before-shot" src={shots.before} alt={c.shop.altBefore} loading="lazy" />}
+              <span class="shop-label before">{c.shop.before}</span>
+              <span class="shop-label after vapor">{c.shop.after}</span>
+              <!-- only the handle takes the drag, so the live store on the right stays usable -->
+              <div class="split-handle" role="slider" tabindex="0" aria-label={c.shop.slider} aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" data-split>
+                <span class="vapor"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 4 1 9l5 5M12 4l5 5-5 5" /></svg></span>
+              </div>
+            </div>
+            <span class="scroll-hint vapor" aria-hidden="true" data-scroll-hint>{c.shop.tryHint}</span>
+          </figure>
+          <figure class="phone" data-float>
+            {shots.cumbrePhone ? <img src={shots.cumbrePhone} alt={c.shop.altMobile} loading="lazy" /> : <p class="pending">{c.pending}</p>}
+          </figure>
+        </div>
+        <div class="case-body">
+          <p>{c.shop.text}</p>
+          <p class="muted small">{c.shop.compare}</p>
+          <ul>{c.shop.points.map((p) => <li>{p}</li>)}</ul>
+          <span class="concept-tag">{c.label}</span>
+        </div>
+      </article>
+    </section>
+
+    <!-- Automations: pick a use case on the left, watch its flow draw itself on the right -->
+    <section class="wrap section" id="automatizaciones" data-section="automatizaciones">
+      <div class="concepts-head">
+        <p class="label eyebrow"><span>02</span>{a.eyebrow}</p>
+        <h2 class="headline" data-lines>{a.title}</h2>
+        <p class="muted">{a.intro}</p>
+      </div>
+      <div class="auto" data-auto>
+        <div class="auto-list" role="tablist" aria-orientation="vertical" aria-label={a.label}>
+          {a.cases.map((uc, i) => (
+            <button type="button" role="tab" id={`auto-tab-${i}`} aria-controls={`auto-panel-${i}`} aria-selected={String(i === 0)} tabindex={i === 0 ? 0 : -1} data-auto-tab>
+              <span class="auto-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <b>{uc.name}</b>
+              <small>{uc.short}</small>
+            </button>
+          ))}
+        </div>
+        {a.cases.map((uc, i) => (
+          <div class="auto-panel" role="tabpanel" id={`auto-panel-${i}`} aria-labelledby={`auto-tab-${i}`} hidden={i !== 0} data-auto-panel>
+            <div class="flow">
+              <span class="flow-line" aria-hidden="true"><i data-flow-fill></i><b data-flow-packet></b></span>
+              <ol>
+              {uc.steps.map((st, k) => (
+                <li class={`node ${st.kind}`} data-node>
+                  <span class="node-dot" aria-hidden="true">{k + 1}</span>
+                  <div>
+                    <small>{a.kinds[st.kind as keyof typeof a.kinds]}</small>
+                    <b>{st.title}</b>
+                    <p>{st.text}</p>
+                  </div>
+                </li>
+              ))}
+              </ol>
+            </div>
+            <div class="chat vapor">
+              <header><span>{a.preview}</span><span class="concept-tag">{c.label}</span></header>
+              {uc.chat.map((m) => <p class={`bubble ${m.from}`} data-bubble>{m.text}</p>)}
+              <button type="button" class="btn btn-secondary btn-sm auto-replay" data-auto-replay>{a.replay}</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Closing: a black glass phone lit in blue and red (the "subject" of pin GIRLBOSS) types the first WhatsApp messages -->
+    <section class="closing-stage">
+      <div class="wrap closing">
+      <div class="closing-copy">
+      <p class="label eyebrow"><span>03</span>{t.closing.eyebrow}</p>
+      <h2 class="display-xl split-letters chroma" aria-label={t.closing.title} data-proximity>
+        {letters(t.closing.title).map((w, i, all) => (
+          <>
+            <span class="w" aria-hidden="true">{[...w].map((ch) => <span class="c">{ch}</span>)}</span>{i < all.length - 1 && ' '}
+          </>
+        ))}
+      </h2>
+      <p class="muted measure">{t.closing.text}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={whatsapp} target="_blank" rel="noopener" data-magnetic><span class="btn-label">{t.hero.cta}</span><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></a>
+      </div>
+      <ul class="specs specs-row" aria-hidden="true">{t.closing.specs.map((x) => <li><span>{x}</span></li>)}</ul>
+      <div class="closing-number">
+        <span>{t.closing.number}</span>
+        <strong>{WHATSAPP_NUMBER}</strong>
+        <button class="btn btn-secondary btn-sm" type="button" data-copy={WHATSAPP_NUMBER} data-copied={t.closing.copied}>{t.closing.copy}</button>
+      </div>
+      </div>
+      <a class="closing-phone" href={whatsapp} target="_blank" rel="noopener" aria-label={t.closing.phone} data-phone data-chat={JSON.stringify(t.closing.chat)}></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot">
+        <div class="foot-lead">
+          <!-- the PagX orbital mark (marca/brandkit), drawn in the page's own ink so it sits on either theme; the horizon is the signal orange -->
+          <svg class="foot-mark" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">
+            <defs><radialGradient id="fm-glow" cx="32" cy="35" r="20" gradientUnits="userSpaceOnUse"><stop offset="0.62" stop-color="currentColor" stop-opacity="0" /><stop offset="0.72" stop-color="currentColor" stop-opacity="0.55" /><stop offset="1" stop-color="currentColor" stop-opacity="0" /></radialGradient></defs>
+            <path d="M6 33a26 26 0 0 1 52 0" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.45" />
+            <path d="M9.5 33a22.5 22.5 0 0 1 45 0" fill="none" stroke="currentColor" stroke-width="1.1" opacity="0.75" />
+            <circle cx="32" cy="35" r="20" fill="url(#fm-glow)" />
+            <circle cx="32" cy="35" r="13.5" fill="oklch(0.13 0.01 260)" stroke="currentColor" stroke-opacity="0.5" />
+            <rect x="3" y="32" width="58" height="2" rx="1" fill="var(--color-c1)" />
+          </svg>
+          <p class="foot-pitch">{t.hero.sub}</p>
+          <a class="btn btn-primary" href={whatsapp} target="_blank" rel="noopener" data-magnetic><span class="btn-label">{t.hero.cta}</span></a>
+        </div>
+        <nav class="foot-col" aria-label={t.footer.studio}>
+          <p class="label">{t.footer.studio}</p>
+          <a href={`${t.nav.home}#conceptos`}>{t.nav.concepts}</a>
+          <a href={t.nav.portfolioHref}>{t.nav.portfolio}</a>
+          <a href={`${t.nav.home}#automatizaciones`}>{t.nav.automations}</a>
+        </nav>
+        <div class="foot-col">
+          <p class="label">{t.footer.write}</p>
+          {EMAILS.map((e) => <a href={`mailto:${e}`}>{e}</a>)}
+          <a href={whatsapp} target="_blank" rel="noopener">{WHATSAPP_NUMBER}</a>
+          <span class="muted">{t.footer.place}</span>
+        </div>
+        <div class="foot-col">
+          <p class="label">{t.footer.follow}</p>
+          <a class="foot-social" href={INSTAGRAM_URL} target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none" /></svg>Instagram</a>
+          {LINKEDIN_URL && <a class="foot-social" href={LINKEDIN_URL} target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.6h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75v5.6h-4v-4.96c0-1.18-.02-2.7-1.7-2.7-1.7 0-1.95 1.28-1.95 2.6v5.06h-4v-11Z" /></svg>LinkedIn</a>}
+          <a class="foot-social" href={whatsapp} target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 20l1.2-3.6A8 8 0 1 1 8 19.2L4 20Z" stroke-linejoin="round" /><path d="M9 8.6c0 3 2.4 5.9 5.6 6.4l1.2-1.4-1.8-.9-.8.8a4.6 4.6 0 0 1-2.4-2.4l.8-.8-.8-1.8L9.4 9" fill="currentColor" stroke="none" /></svg>WhatsApp</a>
+        </div>
+      </div>
+      <p class="foot-word" aria-hidden="true" data-foot-word><span class="logo-pagx">{[...'PagX'].map((ch) => <span class="c">{ch}</span>)}</span><span class="logo-studio">{[...'Studio'].map((ch) => <span class="c">{ch}</span>)}</span></p>
+      <div class="foot-bar">
+        <span>© {new Date().getFullYear()} PagX Studio. {t.footer.rights}</span>
+        <span>{t.footer.made}</span>
+        <a href={t.nav.otherHref}>{t.nav.other}</a>
+        <a href="#main">{t.footer.top} ↑</a>
+      </div>
+    </div>
+  </footer>
+</Layout>
+
+<script>
+  import { bootSite } from '../scripts/site'
+  bootSite()
+</script>

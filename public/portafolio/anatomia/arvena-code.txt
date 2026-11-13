@@ -1,0 +1,70 @@
+<main id="main">
+<section class="on-dark relative isolate flex min-h-[90svh] flex-col justify-end overflow-hidden
+<div data-hero-art="true" class="absolute inset-0 -z-10 scale-105">
+<div class="grain relative isolate overflow-hidden h-full w-full" style="aspect-ratio:auto;backg
+<img src="/editorial/hero-campaign.webp" alt="VISTE TU EVOLUCIÓN. " class="absolute inset-0 h-fu
+</div>
+</div>
+<div aria-hidden="true" class="absolute inset-0 -z-10 bg-gradient-to-t from-noir via-noir/72 to-
+</div>
+<div class="shell pb-16 md:pb-24">
+<p class="kicker text-greige" style="animation:arvena-rise 0.9s var(--ease-editorial) 0.15s both
+<h1 class="mt-6 max-w-[28ch] text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[0.95]">
+<span class="block pb-[0.08em]" style="animation:arvena-rise 0.9s var(--ease-editorial) 0.27s bo
+<span class="block pb-[0.08em] italic text-greige" style="animation:arvena-rise 0.9s var(--ease-
+</span>
+</h1>
+<div class="mt-10 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+<p class="max-w-md whitespace-pre-line font-sans text-base leading-relaxed text-ink-muted" style
+<div class="flex flex-wrap items-center gap-3" style="animation:arvena-rise 0.9s var(--ease-edit
+<a class="inline-flex items-center justify-center gap-2 cursor-pointer select-none whitespace-no
+<a class="inline-flex items-center justify-center gap-2 cursor-pointer select-none whitespace-no
+</div>
+</div>
+</div>
+<div class="shell flex items-center gap-3 pb-8" style="animation:arvena-rise 0.9s var(--ease-edi
+<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" class="text
+<path fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejo
+</path>
+</svg>
+<span class="kicker text-ink-muted">Desliza</span>
+</div>
+</section>
+<section class="on-oat py-section-sm md:py-section">
+<div class="shell">
+<div class="reveal" style="opacity: 1;">
+<header class="max-w-2xl">
+<p class="kicker text-ink-muted">Manifiesto</p>
+<h2 class="mt-5 text-[clamp(2rem,5vw,3.75rem)] whitespace-pre-line">No se trata de encajar. Se t
+<p class="mt-6 font-sans text-base leading-relaxed text-ink-muted whitespace-pre-line">ARVENA na
+</header>
+</div>
+<ul class="reveal-stagger mt-16 grid gap-px border border-line bg-line md:grid-cols-3">
+<li class="bg-vanilla p-8 md:p-10" style="opacity: 1;">
+<span class="block text-cherry" style="background-color:currentColor;-webkit-mask-image:url(/bra
+</span>
+<h3 class="mt-6 font-display text-2xl">Diseño minimalista</h3>
+<p class="mt-3 font-sans text-sm leading-relaxed text-ink-muted">Sin excesos. Cada detalle está 
+</li>
+<li class="bg-vanilla p-8 md:p-10" style="opacity: 1;">
+<span class="block text-cherry" style="background-color:currentColor;-webkit-mask-image:url(/bra
+</span>
+<h3 class="mt-6 font-display text-2xl">Calidad premium</h3>
+<p class="mt-3 font-sans text-sm leading-relaxed text-ink-muted">La excelencia está en los detal
+</li>
+<li class="bg-vanilla p-8 md:p-10" style="opacity: 1;">
+<span class="block text-cherry" style="background-color:currentColor;-webkit-mask-image:url(/bra
+</span>
+<h3 class="mt-6 font-display text-2xl">Hecho para el día a día</h3>
+<p class="mt-3 font-sans text-sm leading-relaxed text-ink-muted">Diseñado para acompañarte del e
+</li>
+</ul>
+</div>
+</section>
+<section class="on-dark relative overflow-hidden border-y py-section-sm md:py-section [backgroun
+<div class="shell grid gap-14 lg:grid-cols-2 lg:items-end">
+<div>
+<p class="kicker text-greige">Drop 001</p>
+<h2 class="mt-5 font-display text-[clamp(2.5rem,8vw,6rem)] italic">Élan Collection</h2>
+<p class="mt-6 max-w-md font-sans text-base leading-relaxed text-oat/75">Un conjunto. Dos colore
+</div>

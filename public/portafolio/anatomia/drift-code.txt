@@ -1,0 +1,70 @@
+<main>
+<!-- 1 · The garage: pick a bay, the camera drives to it -->
+<section class="garage" id="parqueadero" aria-label="Parqueadero">
+<div class="g-stage">
+<picture class="g-hero">
+<source media="(max-aspect-ratio: 4/5)" srcset="/garage/hero-m.webp">
+<img src="/garage/hero-1600.webp" srcset="/garage/hero-1600.webp 1600w, /garage/hero-2560.webp 2
+</picture>
+<picture class="g-hero g-off" aria-hidden="true">
+<source media="(max-aspect-ratio: 4/5)" srcset="/garage/hero-off-m.webp">
+<img src="/garage/hero-off-1600.webp" srcset="/garage/hero-off-1600.webp 1600w, /garage/hero-off
+</picture>
+<canvas class="g-trip" aria-hidden="true" width="1440" height="900">
+</canvas>
+<img class="g-still" alt="" aria-hidden="true">
+<div class="g-spots">
+<button class="spot" data-car="r34" style="--x: 0.03; --y: 0.6793; left: 30px; top: 611.37px;" a
+<span class="spot-dot">
+</span>
+<span class="spot-name">Skyline R34</span>
+</button>
+<button class="spot" data-car="supra" style="--x: 0.0594; --y: 0.6066; left: 30px; top: 545.94px
+<span class="spot-dot">
+</span>
+<span class="spot-name">Supra MK4</span>
+</button>
+<button class="spot" data-car="rx7" style="--x: 0.1798; --y: 0.5725; left: 207.68px; top: 515.25
+<span class="spot-dot">
+</span>
+<span class="spot-name">RX-7 FD</span>
+</button>
+<button class="spot" data-car="s15" style="--x: 0.2498; --y: 0.5526; left: 319.68px; top: 497.34
+<span class="spot-dot">
+</span>
+<span class="spot-name">Silvia S15</span>
+</button>
+<button class="spot" data-car="evo9" style="--x: 0.2955; --y: 0.5397; left: 392.8px; top: 485.73
+<span class="spot-dot">
+</span>
+<span class="spot-name">Evo IX</span>
+</button>
+<button class="spot" data-car="z350" style="--x: 0.3278; --y: 0.5305; left: 444.48px; top: 477.4
+<span class="spot-dot">
+</span>
+<span class="spot-name">350Z</span>
+</button>
+<button class="spot" data-car="nsx" style="--x: 0.3517; --y: 0.5237; left: 482.72px; top: 471.33
+<span class="spot-dot">
+</span>
+<span class="spot-name">NSX</span>
+</button>
+<button class="spot" data-car="p930" style="--x: 0.9183; --y: 0.6092; left: 1389.28px; top: 548.
+<span class="spot-dot">
+</span>
+<span class="spot-name">911 Turbo 930</span>
+</button>
+<button class="spot" data-car="rwb" style="--x: 0.8096; --y: 0.5739; left: 1215.36px; top: 516.5
+<span class="spot-dot">
+</span>
+<span class="spot-name">911 RWB</span>
+</button>
+<button class="spot" data-car="m4csl" style="--x: 0.747; --y: 0.5535; left: 1115.2px; top: 498.1
+<span class="spot-dot">
+</span>
+<span class="spot-name">M4 CSL</span>
+</button>
+<button class="spot" data-car="amggt" style="--x: 0.7063; --y: 0.5402; left: 1050.08px; top: 486
+<span class="spot-dot">
+</span>
+<span class="spot-name">AMG GT</span>

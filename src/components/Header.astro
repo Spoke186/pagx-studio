@@ -1,0 +1,45 @@
+---
+import type { Dict } from '../i18n'
+import { whatsappFor } from '../i18n'
+
+interface Props { t: Dict; other?: string }
+const { t, other = t.nav.otherHref } = Astro.props
+const whatsapp = whatsappFor(t.lang as 'es' | 'en')
+const home = t.nav.home
+// off the home page, section links go back to the home sections
+const at = Astro.url.pathname === home ? '' : home
+const onPortfolio = Astro.url.pathname === t.nav.portfolioHref
+---
+
+<a class="skip" href="#main">{t.skip}</a>
+<header class="site-header" data-header>
+  <div class="bg vapor" aria-hidden="true"></div>
+  <div class="wrap bar">
+    <a class="logo" href={home} data-logo aria-label="PagX Studio"><span class="logo-pagx">PagX</span><span class="logo-studio">Studio</span></a>
+    <nav aria-label={t.nav.label}>
+      <ul class="nav-links">
+        <li><a href={`${at}#conceptos`} data-navlink="conceptos">{t.nav.concepts}</a></li>
+        <li><a href={t.nav.portfolioHref} data-dive aria-current={onPortfolio ? 'page' : undefined}>{t.nav.portfolio}</a></li>
+        <li><a href={`${at}#automatizaciones`} data-navlink="automatizaciones">{t.nav.automations}</a></li>
+      </ul>
+    </nav>
+    {!onPortfolio && (
+      <button class="theme-toggle" type="button" aria-pressed="false" aria-label={t.nav.theme} data-theme-toggle>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 3.5a8.5 8.5 0 0 0 0 17z" fill="currentColor" /></svg>
+      </button>
+    )}
+    <a class="lang" href={other} hreflang={t.lang === 'es' ? 'en' : 'es'}>{t.nav.other}</a>
+    <a class="btn btn-primary btn-sm" href={whatsapp} target="_blank" rel="noopener" data-magnetic><span class="btn-label">{t.nav.quote}</span></a>
+  </div>
+</header>
+
+<div class="thumb-bar vapor">
+  <a class="btn btn-primary" href={whatsapp} target="_blank" rel="noopener"><span class="btn-label">{t.hero.cta}</span></a>
+  <button class="btn btn-secondary menu-btn" type="button" aria-expanded="false" aria-controls="menu-sheet" data-menu-btn data-open={t.nav.menu} data-close={t.nav.close}>{t.nav.menu}</button>
+</div>
+<div class="menu-sheet vapor" id="menu-sheet" hidden data-menu>
+  <a href={`${at}#conceptos`}>{t.nav.concepts}</a>
+  <a href={t.nav.portfolioHref} data-dive>{t.nav.portfolio}</a>
+  <a href={`${at}#automatizaciones`}>{t.nav.automations}</a>
+  <a href={other} hreflang={t.lang === 'es' ? 'en' : 'es'}>{t.nav.other}</a>
+</div>

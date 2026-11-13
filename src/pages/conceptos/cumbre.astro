@@ -1,0 +1,494 @@
+---
+// Cumbre: a live Shopify-style store (PagX concept, fictional brand). Shown inside the browser frame on the home
+// page and on its own at /conceptos/cumbre/. Frontend only: the cart lives in the page, checkout is a mock.
+import { Image } from 'astro:assets'
+import '@fontsource-variable/bodoni-moda/wght.css'
+import '@fontsource-variable/bodoni-moda/wght-italic.css'
+import '@fontsource-variable/hanken-grotesk/wght.css'
+import product from '../../../assets/higgsfield/cumbre-product.webp'
+import pour from '../../../assets/higgsfield/cumbre-pour.webp'
+import origin from '../../../assets/higgsfield/cumbre-origin.webp'
+
+const gallery = [
+  { src: product, alt: 'Bolsa negra de café Cumbre sobre una piedra volcánica.' },
+  { src: pour, alt: 'Café filtrado en V60 junto a la bolsa de Cumbre.' },
+  { src: origin, alt: 'Cafetales de la finca al atardecer.' },
+]
+const profile = [
+  { k: 'Acidez', v: 72, d: 'Brillante, de mandarina' },
+  { k: 'Cuerpo', v: 58, d: 'Sedoso, medio' },
+  { k: 'Dulzor', v: 84, d: 'Panela y cacao' },
+]
+const methods = [
+  { id: 'v60', name: 'V60', ratio: '1:16', grind: 'Media-fina', time: '3:00 min', steps: ['15 g de café y 240 g de agua a 92 °C.', 'Pre-infusión con 40 g, espera 30 s.', 'Vierte en espiral hasta 240 g.', 'Deja drenar y sirve.'] },
+  { id: 'prensa', name: 'Prensa francesa', ratio: '1:15', grind: 'Gruesa', time: '4:00 min', steps: ['20 g de café y 300 g de agua a 94 °C.', 'Revuelve suave y tapa.', 'A los 4 minutos, baja el émbolo despacio.', 'Sirve de inmediato.'] },
+  { id: 'espresso', name: 'Espresso', ratio: '1:2', grind: 'Fina', time: '28 s', steps: ['18 g de café en el portafiltro.', 'Nivela y compacta parejo.', 'Extrae 36 g en unos 28 segundos.', 'Busca crema color avellana.'] },
+]
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <meta name="description" content="Cumbre, café de origen del Eje Cafetero. Concepto de PagX Studio con una marca ficticia." />
+  <title>Cumbre · Concepto de PagX</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+  <p class="bar">Envío gratis en Colombia desde $ 120.000 · Tostamos cada lunes</p>
+  <header class="nav">
+    <nav class="links" aria-label="Tienda"><a href="#top">Cafés</a><a href="#ritual">Métodos</a><a href="#origen">La finca</a></nav>
+    <a class="logo" href="#top" aria-label="Cumbre, inicio">CUMBRE</a>
+    <div class="right"><span class="hide-s">Cuenta</span><button type="button" class="cart-btn" data-open-cart>Carrito (<b data-count>0</b>)</button></div>
+  </header>
+
+  <main id="top">
+    <!-- Product -->
+    <section class="product" data-product>
+      <div class="gallery">
+        <div class="stage" data-zoom>
+          {gallery.map((g, i) => <Image class={i === 0 ? 'is-on' : ''} src={g.src} alt={g.alt} widths={[640, 1100, 1600]} sizes="(max-width: 760px) 100vw, 55vw" loading={i === 0 ? 'eager' : 'lazy'} data-shot />)}
+        </div>
+        <div class="thumbs" role="group" aria-label="Fotos del producto">
+          {gallery.map((g, i) => (
+            <button type="button" aria-pressed={String(i === 0)} aria-label={`Ver foto ${i + 1}`} data-thumb={i}><Image src={g.src} alt="" widths={[160]} sizes="72px" /></button>
+          ))}
+        </div>
+      </div>
+      <div class="info">
+        <p class="crumbs">Cafés · Origen único</p>
+        <h1>Cumbre <em>1.800</em><br />Finca La Esperanza</h1>
+        <div class="notes"><span>Panela</span><span>Mandarina</span><span>Cacao</span></div>
+        <p class="price"><b data-price>$ 48.000</b> <s data-was hidden></s> <small data-unit>250 g</small></p>
+
+        <fieldset class="opt"><legend>Tamaño</legend>
+          <button type="button" aria-pressed="true" data-size="250">250 g</button>
+          <button type="button" aria-pressed="false" data-size="500">500 g</button>
+        </fieldset>
+        <fieldset class="opt"><legend>Molienda</legend>
+          <button type="button" aria-pressed="true" data-grind="En grano">En grano</button>
+          <button type="button" aria-pressed="false" data-grind="Filtro">Filtro</button>
+          <button type="button" aria-pressed="false" data-grind="Espresso">Espresso</button>
+        </fieldset>
+        <label class="sub"><input type="checkbox" data-sub /><span class="switch" aria-hidden="true"></span><span><b>Suscríbete y ahorra 10 %</b><small>Te llega cada mes. Cancelas cuando quieras.</small></span></label>
+
+        <div class="buy">
+          <div class="qty"><button type="button" aria-label="Menos" data-qty="-1">−</button><b data-qty-n>1</b><button type="button" aria-label="Más" data-qty="1">+</button></div>
+          <button type="button" class="add" data-add><span>Agregar al carrito</span></button>
+        </div>
+        <ul class="trust"><li>Envío 24–48 h</li><li>Tostado cada lunes</li><li>Pago seguro</li></ul>
+      </div>
+    </section>
+
+    <!-- Origin -->
+    <section class="origin" id="origen">
+      <div class="origin-img" data-parallax><Image src={origin} alt="" widths={[960, 1600, 2048]} sizes="100vw" /></div>
+      <div class="origin-copy">
+        <p class="kicker">El origen</p>
+        <p class="alt"><b data-count-to="1800">1.800</b><span>m</span></p>
+        <p>Cultivado a la sombra en la Finca La Esperanza, en las montañas del Eje Cafetero. A esa altura el grano madura lento y se vuelve más dulce.</p>
+      </div>
+    </section>
+
+    <!-- Profile -->
+    <section class="profile" data-profile>
+      <div>
+        <p class="kicker">En la taza</p>
+        <h2>Dulce, brillante<br /><em>y redondo.</em></h2>
+      </div>
+      <ul>
+        {profile.map((p) => (
+          <li><div><b>{p.k}</b><span>{p.d}</span></div><i><span style={`--v:${p.v}%`} data-bar></span></i></li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Ritual: brew guide -->
+    <section class="ritual" id="ritual">
+      <div class="ritual-img"><Image src={pour} alt="Preparación en V60 con café Cumbre." widths={[640, 1100]} sizes="(max-width: 760px) 100vw, 45vw" /></div>
+      <div class="ritual-copy">
+        <p class="kicker">El ritual</p>
+        <h2>Prepáralo bien.</h2>
+        <div class="tabs" role="tablist" aria-label="Método de preparación">
+          {methods.map((m, i) => <button type="button" role="tab" id={`tab-${m.id}`} aria-controls={`pane-${m.id}`} aria-selected={String(i === 0)} tabindex={i ? -1 : 0} data-tab>{m.name}</button>)}
+        </div>
+        {methods.map((m, i) => (
+          <div class="pane" role="tabpanel" id={`pane-${m.id}`} aria-labelledby={`tab-${m.id}`} hidden={i !== 0} data-pane>
+            <dl><div><dt>Proporción</dt><dd>{m.ratio}</dd></div><div><dt>Molienda</dt><dd>{m.grind}</dd></div><div><dt>Tiempo</dt><dd>{m.time}</dd></div></dl>
+            <ol>{m.steps.map((s) => <li>{s}</li>)}</ol>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <b>CUMBRE</b>
+    <p>Café de altura del Eje Cafetero · Concepto de PagX Studio, marca ficticia</p>
+  </footer>
+
+  <!-- Sticky buy bar -->
+  <div class="sticky" data-sticky aria-hidden="true">
+    <span><b>Cumbre 1.800</b> <small data-sticky-meta>250 g · En grano</small></span>
+    <b data-sticky-price>$ 48.000</b>
+    <button type="button" class="add sm" data-add tabindex="-1"><span>Agregar</span></button>
+  </div>
+
+  <!-- Cart drawer -->
+  <div class="scrim" data-scrim hidden></div>
+  <div class="drawer" role="dialog" aria-modal="true" aria-label="Carrito" data-drawer hidden>
+    <header><b>Tu carrito</b><button type="button" aria-label="Cerrar carrito" data-close-cart>✕</button></header>
+    <div class="ship"><p data-ship-msg>Te faltan $ 120.000 para el envío gratis</p><i><span data-ship-bar></span></i></div>
+    <ul class="lines" data-lines></ul>
+    <p class="empty" data-empty>Tu carrito está vacío.</p>
+    <footer>
+      <p><span>Subtotal</span><b data-subtotal>$ 0</b></p>
+      <button type="button" class="add" data-checkout><span>Finalizar compra</span></button>
+      <small>Impuestos y envío se calculan en el pago.</small>
+    </footer>
+  </div>
+  <p class="toast" role="status" data-toast></p>
+
+  <div class="notice" role="dialog" aria-label="Aviso" data-notice hidden>
+    <b>Hola.</b>
+    <p>Cumbre es una marca ficticia: un concepto de PagX Studio para mostrar cómo podría verse tu tienda Shopify.</p>
+    <button type="button" data-notice-close>Entendido</button>
+  </div>
+
+  <template data-line-tpl>
+    <li><Image src={product} alt="" widths={[160]} sizes="64px" /><div><b data-l-name></b><small data-l-meta></small><div class="qty sm"><button type="button" aria-label="Menos" data-l-qty="-1">−</button><b data-l-n></b><button type="button" aria-label="Más" data-l-qty="1">+</button></div></div><b data-l-price></b></li>
+  </template>
+</body>
+</html>
+
+<style is:global>
+  :root { --bg: #151211; --paper: #f1ebe2; --cream: #e9dcc6; --clay: #b8683a; --muted: #a39a8f; --line: rgb(241 235 226 / .14);
+    --serif: "Bodoni Moda Variable", serif; --sans: "Hanken Grotesk Variable", sans-serif; color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--bg); }
+  body { font: 400 15px/1.6 var(--sans); color: var(--paper); background: var(--bg); overflow-x: clip; -webkit-font-smoothing: antialiased; }
+  img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+  em { font-style: italic; color: var(--cream); }
+  .kicker { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+  .bar { background: var(--clay); color: #1a0f08; text-align: center; font-size: 12px; font-weight: 600; letter-spacing: .05em; padding: 7px; }
+  .nav { position: sticky; top: 0; z-index: 20; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 16px 4vw; background: rgb(21 18 17 / .88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); font-size: 14px; }
+  .links { display: flex; gap: 26px; color: #d9d1c6; }
+  .links a:hover, .right span:hover { color: var(--paper); }
+  .logo { font: 500 24px var(--serif); letter-spacing: .38em; padding-left: .38em; }
+  .right { display: flex; gap: 24px; justify-content: end; align-items: center; color: #d9d1c6; }
+  .cart-btn { font-weight: 600; color: var(--paper); }
+  .cart-btn b { display: inline-block; }
+
+  /* product */
+  .product { display: grid; grid-template-columns: 1.15fr 1fr; min-height: calc(100svh - 90px); }
+  .gallery { position: relative; }
+  .stage { position: relative; height: 100%; min-height: 420px; overflow: hidden; cursor: zoom-in; }
+  .stage img { position: absolute; inset: 0; opacity: 0; transition: opacity .7s cubic-bezier(.16, 1, .3, 1), scale .5s cubic-bezier(.16, 1, .3, 1); }
+  .stage img.is-on { opacity: 1; }
+  .stage.is-zoom img.is-on { scale: 1.8; }
+  .thumbs { position: absolute; left: 20px; bottom: 20px; display: flex; gap: 10px; }
+  .thumbs button { width: 60px; height: 72px; border-radius: 8px; overflow: hidden; box-shadow: 0 0 0 1px rgb(241 235 226 / .3); transition: box-shadow .3s, translate .3s; }
+  .thumbs button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--paper); translate: 0 -4px; }
+  .info { padding: 5vh 5vw; display: flex; flex-direction: column; gap: 18px; justify-content: center; }
+  .crumbs { font-size: 13px; color: var(--muted); }
+  h1 { font: 400 clamp(36px, 4.6vw, 64px)/.98 var(--serif); }
+  .notes { display: flex; gap: 8px; flex-wrap: wrap; }
+  .notes span { padding: 5px 13px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font-size: 13px; color: #ddd4c8; }
+  .price { display: flex; align-items: baseline; gap: 12px; }
+  .price b { font: 400 clamp(26px, 2.6vw, 34px) var(--serif); }
+  .price s { color: var(--muted); font-size: 15px; }
+  .price small { color: var(--muted); font-size: 13px; }
+  .opt { border: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt legend { width: 100%; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .opt button { padding: 10px 16px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--line); font-size: 14px; transition: box-shadow .3s, background-color .3s; }
+  .opt button:hover { box-shadow: inset 0 0 0 1px rgb(241 235 226 / .4); }
+  .opt button[aria-pressed="true"] { box-shadow: inset 0 0 0 1.5px var(--cream); background: rgb(233 220 198 / .06); }
+  .sub { display: flex; gap: 14px; align-items: center; padding: 12px 14px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; }
+  .sub input { position: absolute; opacity: 0; }
+  .switch { position: relative; flex: none; width: 38px; height: 22px; border-radius: 99px; background: #3a332f; transition: background-color .3s; }
+  .switch::after { content: ""; position: absolute; left: 3px; top: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--paper); transition: translate .35s cubic-bezier(.16, 1, .3, 1); }
+  .sub input:checked + .switch { background: var(--clay); }
+  .sub input:checked + .switch::after { translate: 16px 0; }
+  .sub input:focus-visible + .switch { outline: 2px solid var(--cream); outline-offset: 3px; }
+  .sub b { display: block; font-weight: 600; font-size: 14px; } .sub small { color: var(--muted); font-size: 12px; }
+  .buy { display: flex; gap: 10px; }
+  .qty { display: flex; align-items: center; gap: 16px; padding: 0 16px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); }
+  .qty button { font-size: 18px; padding: 6px 2px; }
+  .add { position: relative; flex: 1; padding: 17px 20px; border-radius: 999px; background: var(--paper); color: var(--bg); font-weight: 700; overflow: hidden; transition: scale .2s; }
+  .add:active { scale: .98; }
+  .add::before { content: ""; position: absolute; inset: 0; background: var(--cream); translate: -101% 0; transition: translate .5s cubic-bezier(.16, 1, .3, 1); }
+  .add:hover::before { translate: 0 0; }
+  .add span { position: relative; }
+  .add.is-done { background: var(--clay); color: #1a0f08; }
+  .trust { list-style: none; padding: 0; display: flex; gap: 18px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+  .trust li::before { content: "✓ "; color: var(--cream); }
+
+  /* origin */
+  .origin { position: relative; height: 90svh; overflow: hidden; display: grid; align-items: end; }
+  .origin-img { position: absolute; inset: -10% 0; will-change: transform; }
+  .origin::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgb(21 18 17 / .92), rgb(21 18 17 / .2) 55%, transparent); }
+  .origin-copy { position: relative; z-index: 1; padding: 0 5vw 8vh; max-width: 760px; }
+  .alt { display: flex; align-items: baseline; gap: 10px; font: 400 clamp(80px, 16vw, 220px)/.85 var(--serif); margin: 10px 0 18px; font-variant-numeric: lining-nums; }
+  .alt span { font-size: .3em; font-style: italic; color: var(--cream); }
+  .origin-copy > p:last-child { max-width: 46ch; color: #ddd4c8; }
+
+  /* profile */
+  .profile { display: grid; grid-template-columns: 1fr 1.2fr; gap: 6vw; padding: 16vh 5vw; align-items: center; }
+  h2 { font: 400 clamp(34px, 4.6vw, 64px)/1 var(--serif); margin-top: 12px; }
+  .profile ul { list-style: none; padding: 0; display: grid; gap: 26px; }
+  .profile li > div { display: flex; justify-content: space-between; margin-bottom: 10px; }
+  .profile li span { color: var(--muted); font-size: 14px; }
+  .profile i { display: block; height: 2px; background: var(--line); }
+  .profile i span { display: block; height: 100%; width: var(--v); background: linear-gradient(90deg, var(--clay), var(--cream)); transform-origin: left; }
+
+  /* ritual */
+  .ritual { display: grid; grid-template-columns: 1fr 1.1fr; min-height: 80svh; border-top: 1px solid var(--line); }
+  .ritual-img { min-height: 380px; }
+  .ritual-copy { padding: 10vh 5vw; display: flex; flex-direction: column; gap: 20px; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tabs button { padding: 9px 16px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font-size: 14px; transition: background-color .3s, color .3s; }
+  .tabs button[aria-selected="true"] { background: var(--paper); color: var(--bg); font-weight: 600; }
+  dl { display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid var(--line); padding-block: 16px; }
+  dt { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  dd { margin: 4px 0 0; font: 400 24px var(--serif); }
+  .pane ol { padding-left: 20px; display: grid; gap: 8px; color: #ddd4c8; margin-top: 16px; }
+
+  .foot { padding: 14vh 5vw 6vh; text-align: center; border-top: 1px solid var(--line); }
+  .foot b { display: block; font: 400 clamp(64px, 15vw, 210px)/.9 var(--serif); letter-spacing: .12em; padding-left: .12em; }
+  .foot p { margin-top: 5vh; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+
+  /* sticky buy bar */
+  .sticky { position: fixed; left: 50%; bottom: 16px; z-index: 25; display: flex; align-items: center; gap: 18px; padding: 8px 8px 8px 20px; border-radius: 999px; background: rgb(35 30 28 / .9); backdrop-filter: blur(14px); box-shadow: 0 20px 40px -20px #000, inset 0 0 0 1px var(--line); translate: -50% 140%; transition: translate .6s cubic-bezier(.16, 1, .3, 1); font-size: 14px; }
+  .sticky.is-on { translate: -50% 0; }
+  .sticky small { color: var(--muted); margin-left: 6px; }
+  .add.sm { flex: none; padding: 11px 20px; font-size: 13px; }
+
+  /* drawer */
+  .scrim { position: fixed; inset: 0; z-index: 40; background: rgb(0 0 0 / .5); opacity: 0; transition: opacity .4s; }
+  .scrim.is-on { opacity: 1; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; z-index: 41; width: min(400px, 92vw); background: #1d1917; display: flex; flex-direction: column; translate: 100% 0; transition: translate .55s cubic-bezier(.16, 1, .3, 1); box-shadow: -30px 0 60px -30px #000; }
+  .drawer.is-on { translate: 0 0; }
+  .drawer > header { display: flex; justify-content: space-between; align-items: center; padding: 20px 22px; border-bottom: 1px solid var(--line); font: 400 22px var(--serif); }
+  .ship { padding: 16px 22px; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .ship i { display: block; height: 4px; border-radius: 4px; background: var(--line); margin-top: 10px; overflow: hidden; }
+  .ship span { display: block; height: 100%; background: linear-gradient(90deg, var(--clay), var(--cream)); transform-origin: left; transform: scaleX(0); transition: transform .8s cubic-bezier(.16, 1, .3, 1); }
+  .lines { list-style: none; padding: 0 22px; flex: 1; overflow-y: auto; }
+  .lines li { display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .lines img { height: 76px; border-radius: 8px; }
+  .lines small { display: block; color: var(--muted); font-size: 12px; margin: 2px 0 10px; }
+  .qty.sm { display: inline-flex; gap: 12px; padding: 0 12px; }
+  .qty.sm button { font-size: 15px; }
+  .empty { padding: 30px 22px; color: var(--muted); }
+  .drawer > footer { padding: 18px 22px 22px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
+  .drawer > footer p { display: flex; justify-content: space-between; font-size: 16px; }
+  .drawer > footer small { color: var(--muted); font-size: 12px; text-align: center; }
+  .toast { position: fixed; left: 50%; top: 20px; z-index: 50; translate: -50% -160%; padding: 12px 20px; border-radius: 999px; background: var(--paper); color: var(--bg); font-size: 13px; font-weight: 600; transition: translate .5s cubic-bezier(.16, 1, .3, 1); pointer-events: none; }
+  .toast.is-on { translate: -50% 0; }
+
+  .notice { position: fixed; left: 16px; bottom: 16px; z-index: 30; width: min(280px, calc(100vw - 32px)); padding: 16px 18px; border-radius: 14px; background: var(--paper); color: var(--bg); font-size: 13px; }
+  .notice[hidden] { display: none; }
+  .notice b { font: 400 22px var(--serif); }
+  .notice p { margin: 6px 0 10px; }
+  .notice button { font-weight: 700; text-decoration: underline; }
+
+  @media (max-width: 760px) {
+    .links, .hide-s { display: none; }
+    .nav { grid-template-columns: auto 1fr auto; }
+    .logo { font-size: 18px; grid-column: 2; text-align: center; }
+    .product, .profile, .ritual { grid-template-columns: 1fr; }
+    .stage { height: 62svh; min-height: 0; }
+    .thumbs { left: 12px; bottom: 12px; } .thumbs button { width: 44px; height: 52px; }
+    .info { padding: 24px 5vw 40px; }
+    .buy .qty { display: none; }
+    .sticky { left: 12px; right: 12px; translate: 0 140%; justify-content: space-between; }
+    .sticky.is-on { translate: 0 0; }
+    .sticky > b { display: none; }
+    dl { grid-template-columns: repeat(3, 1fr); } dd { font-size: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+</style>
+
+<script>
+  import { createClock, gsap, ScrollTrigger } from '@pagx/motion'
+
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches
+  const clock = createClock({ smooth: !still })
+  const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!
+  const $$ = <T extends Element = HTMLElement>(s: string) => [...document.querySelectorAll<T>(s)]
+  const cop = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 })
+  const money = (n: number) => cop.format(n).replace(/\s/g, ' ')
+
+  // --- product state ---
+  const PRICE = { '250': 48000, '500': 88000 } as const
+  const FREE = 120000
+  const s = { size: '250' as keyof typeof PRICE, grind: 'En grano', sub: false, qty: 1 }
+  const unit = () => Math.round(PRICE[s.size] * (s.sub ? 0.9 : 1))
+  const render = () => {
+    $('[data-price]').textContent = money(unit())
+    const was = $('[data-was]')
+    was.hidden = !s.sub
+    was.textContent = money(PRICE[s.size])
+    $('[data-unit]').textContent = `${s.size} g${s.sub ? ' · cada mes' : ''}`
+    $('[data-qty-n]').textContent = String(s.qty)
+    $('[data-sticky-price]').textContent = money(unit())
+    $('[data-sticky-meta]').textContent = `${s.size} g · ${s.grind}`
+  }
+  const pick = (attr: string, onPick: (v: string) => void) =>
+    $$<HTMLButtonElement>(`[${attr}]`).forEach((b) =>
+      b.addEventListener('click', () => {
+        $$(`[${attr}]`).forEach((x) => x.setAttribute('aria-pressed', String(x === b)))
+        onPick(b.getAttribute(attr)!)
+        render()
+      }),
+    )
+  pick('data-size', (v) => (s.size = v as keyof typeof PRICE))
+  pick('data-grind', (v) => (s.grind = v))
+  $<HTMLInputElement>('[data-sub]').addEventListener('change', (e) => { s.sub = (e.target as HTMLInputElement).checked; render() })
+  $$<HTMLButtonElement>('[data-qty]').forEach((b) => b.addEventListener('click', () => { s.qty = Math.max(1, Math.min(9, s.qty + Number(b.dataset.qty))); render() }))
+
+  // --- gallery + hover zoom ---
+  const shots = $$('[data-shot]')
+  $$<HTMLButtonElement>('[data-thumb]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const i = Number(b.dataset.thumb)
+      shots.forEach((img, k) => img.classList.toggle('is-on', k === i))
+      $$('[data-thumb]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)))
+    }),
+  )
+  const stage = $('[data-zoom]')
+  if (matchMedia('(hover: hover)').matches) {
+    stage.addEventListener('pointerenter', () => stage.classList.add('is-zoom'))
+    stage.addEventListener('pointerleave', () => stage.classList.remove('is-zoom'))
+    stage.addEventListener('pointermove', (e) => {
+      const r = stage.getBoundingClientRect()
+      const o = `${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`
+      shots.forEach((img) => (img.style.transformOrigin = o))
+    })
+  }
+
+  // --- cart ---
+  type Line = { key: string; size: string; grind: string; sub: boolean; unit: number; qty: number }
+  const cart: Line[] = []
+  const drawer = $('[data-drawer]')
+  const scrim = $('[data-scrim]')
+  const tpl = $<HTMLTemplateElement>('[data-line-tpl]')
+  const toast = (msg: string) => {
+    const t = $('[data-toast]')
+    t.textContent = msg
+    t.classList.add('is-on')
+    setTimeout(() => t.classList.remove('is-on'), 2600)
+  }
+  const paintCart = () => {
+    const list = $('[data-lines]')
+    list.replaceChildren()
+    let total = 0
+    let count = 0
+    cart.forEach((l) => {
+      total += l.unit * l.qty
+      count += l.qty
+      const li = tpl.content.firstElementChild!.cloneNode(true) as HTMLElement
+      li.querySelector('[data-l-name]')!.textContent = 'Cumbre 1.800'
+      li.querySelector('[data-l-meta]')!.textContent = `${l.size} g · ${l.grind}${l.sub ? ' · suscripción' : ''}`
+      li.querySelector('[data-l-n]')!.textContent = String(l.qty)
+      li.querySelector('[data-l-price]')!.textContent = money(l.unit * l.qty)
+      li.querySelectorAll<HTMLButtonElement>('[data-l-qty]').forEach((b) =>
+        b.addEventListener('click', () => {
+          l.qty += Number(b.dataset.lQty)
+          if (l.qty <= 0) cart.splice(cart.indexOf(l), 1)
+          paintCart()
+        }),
+      )
+      list.append(li)
+    })
+    $('[data-empty]').hidden = cart.length > 0
+    $('[data-subtotal]').textContent = money(total)
+    const left = FREE - total
+    $('[data-ship-msg]').textContent = left > 0 ? `Te faltan ${money(left)} para el envío gratis` : 'Tu envío es gratis'
+    $('[data-ship-bar]').style.transform = `scaleX(${Math.min(1, total / FREE)})`
+    const c = $('[data-count]')
+    c.textContent = String(count)
+    if (!still) gsap.fromTo(c, { scale: 1.6 }, { scale: 1, duration: 0.5, ease: 'back.out(3)' })
+  }
+  let lastFocus: HTMLElement | null = null
+  const openCart = () => {
+    lastFocus = document.activeElement as HTMLElement
+    drawer.hidden = scrim.hidden = false
+    requestAnimationFrame(() => { drawer.classList.add('is-on'); scrim.classList.add('is-on') })
+    clock.lenis?.stop()
+    $<HTMLButtonElement>('[data-close-cart]').focus()
+  }
+  const closeCart = () => {
+    drawer.classList.remove('is-on')
+    scrim.classList.remove('is-on')
+    clock.lenis?.start()
+    setTimeout(() => { drawer.hidden = scrim.hidden = true }, still ? 0 : 500)
+    lastFocus?.focus()
+  }
+  $$('[data-add]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const key = `${s.size}|${s.grind}|${s.sub}`
+      const found = cart.find((l) => l.key === key)
+      if (found) found.qty += s.qty
+      else cart.push({ key, size: s.size, grind: s.grind, sub: s.sub, unit: unit(), qty: s.qty })
+      paintCart()
+      $$('[data-add]').forEach((x) => { x.classList.add('is-done'); x.querySelector('span')!.textContent = 'Agregado ✓' })
+      setTimeout(() => {
+        $$<HTMLElement>('.add[data-add]').forEach((x) => { x.classList.remove('is-done'); x.querySelector('span')!.textContent = x.classList.contains('sm') ? 'Agregar' : 'Agregar al carrito' })
+      }, 1400)
+      setTimeout(openCart, still ? 0 : 450)
+    }),
+  )
+  $('[data-open-cart]').addEventListener('click', openCart)
+  $('[data-close-cart]').addEventListener('click', closeCart)
+  scrim.addEventListener('click', closeCart)
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && !drawer.hidden) closeCart() })
+  $('[data-checkout]').addEventListener('click', () => toast('Concepto: aquí seguiría el checkout de Shopify.'))
+  paintCart()
+
+  // --- brew guide tabs ---
+  const tabs = $$<HTMLButtonElement>('[data-tab]')
+  const panes = $$('[data-pane]')
+  const selectTab = (i: number, focus = false) => {
+    tabs.forEach((t, k) => { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; panes[k].hidden = k !== i })
+    if (focus) tabs[i].focus()
+    if (!still) gsap.from(panes[i].querySelectorAll('dd, li'), { y: 12, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: 'expo.out' })
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => selectTab(i))
+    t.addEventListener('keydown', (e) => {
+      const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]
+      if (d) { e.preventDefault(); selectTab((i + d + tabs.length) % tabs.length, true) }
+    })
+  })
+
+  // --- sticky bar: shows once the product panel scrolls away ---
+  const sticky = $('[data-sticky]')
+  ScrollTrigger.create({
+    trigger: '[data-product]', start: 'bottom 30%', end: 'max',
+    onToggle: (t) => { sticky.classList.toggle('is-on', t.isActive); sticky.setAttribute('aria-hidden', String(!t.isActive)); sticky.querySelector('button')!.tabIndex = t.isActive ? 0 : -1 },
+  })
+
+  // --- scroll motion ---
+  if (!still) {
+    gsap.fromTo('[data-parallax]', { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.origin', start: 'top bottom', end: 'bottom top', scrub: true } })
+    const n = $('[data-count-to]')
+    const o = { v: 0 }
+    n.textContent = '0' // the real figure is in the HTML; with motion it counts up on arrival
+    gsap.to(o, { v: 1800, duration: 2, ease: 'expo.out', scrollTrigger: { trigger: '.origin', start: 'top 60%', once: true }, onUpdate: () => (n.textContent = Math.round(o.v).toLocaleString('es-CO')) })
+    gsap.from('[data-bar]', { scaleX: 0, duration: 1.4, ease: 'expo.out', stagger: 0.12, scrollTrigger: { trigger: '[data-profile]', start: 'top 70%', once: true } })
+    gsap.from('.info > *', { y: 24, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: 0.06, delay: 0.15 })
+  }
+
+  // --- the honest notice (hidden inside the PagX frame, which already labels the concept) ---
+  const notice = $('[data-notice]')
+  if (window.self === window.top) setTimeout(() => (notice.hidden = false), still ? 0 : 2500)
+  $('[data-notice-close]').addEventListener('click', () => (notice.hidden = true))
+  render()
+</script>

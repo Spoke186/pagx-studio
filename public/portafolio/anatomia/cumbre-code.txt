@@ -1,0 +1,70 @@
+<main id="top">
+<!-- Product -->
+<section class="product" data-product="">
+<div class="gallery">
+<div class="stage" data-zoom="">
+<img src="/_astro/cumbre-product.D4ZYssLJ_26s7Ab.webp" srcset="/_astro/cumbre-product.D4ZYssLJ_1
+<img src="/_astro/cumbre-pour.DRH3UkwT_16ww36.webp" srcset="/_astro/cumbre-pour.DRH3UkwT_Z1HRC4i
+<img src="/_astro/cumbre-origin.Dunb8LsM_2lxNke.webp" srcset="/_astro/cumbre-origin.Dunb8LsM_4LK
+</div>
+<div class="thumbs" role="group" aria-label="Fotos del producto">
+<button type="button" aria-pressed="true" aria-label="Ver foto 1" data-thumb="0">
+<img src="/_astro/cumbre-product.D4ZYssLJ_26s7Ab.webp" srcset="/_astro/cumbre-product.D4ZYssLJ_m
+</button>
+<button type="button" aria-pressed="false" aria-label="Ver foto 2" data-thumb="1">
+<img src="/_astro/cumbre-pour.DRH3UkwT_16ww36.webp" srcset="/_astro/cumbre-pour.DRH3UkwT_65rhP.w
+</button>
+<button type="button" aria-pressed="false" aria-label="Ver foto 3" data-thumb="2">
+<img src="/_astro/cumbre-origin.Dunb8LsM_2lxNke.webp" srcset="/_astro/cumbre-origin.Dunb8LsM_8HS
+</button>
+</div>
+</div>
+<div class="info">
+<p class="crumbs">Cafés · Origen único</p>
+<h1>Cumbre <em>1.800</em>
+<br>Finca La Esperanza</h1>
+<div class="notes">
+<span>Panela</span>
+<span>Mandarina</span>
+<span>Cacao</span>
+</div>
+<p class="price">
+<b data-price="">$ 48.000</b> <s data-was="" hidden="">$ 48.000</s> <small data-unit="">250 g</s
+<fieldset class="opt">
+<legend>Tamaño</legend>
+<button type="button" aria-pressed="true" data-size="250">250 g</button>
+<button type="button" aria-pressed="false" data-size="500">500 g</button>
+</fieldset>
+<fieldset class="opt">
+<legend>Molienda</legend>
+<button type="button" aria-pressed="true" data-grind="En grano">En grano</button>
+<button type="button" aria-pressed="false" data-grind="Filtro">Filtro</button>
+<button type="button" aria-pressed="false" data-grind="Espresso">Espresso</button>
+</fieldset>
+<label class="sub">
+<input type="checkbox" data-sub="" style="">
+<span class="switch" aria-hidden="true">
+</span>
+<span>
+<b>Suscríbete y ahorra 10 %</b>
+<small>Te llega cada mes. Cancelas cuando quieras.</small>
+</span>
+</label>
+<div class="buy">
+<div class="qty">
+<button type="button" aria-label="Menos" data-qty="-1">−</button>
+<b data-qty-n="">1</b>
+<button type="button" aria-label="Más" data-qty="1">+</button>
+</div>
+<button type="button" class="add" data-add="">
+<span>Agregar al carrito</span>
+</button>
+</div>
+<ul class="trust">
+<li>Envío 24–48 h</li>
+<li>Tostado cada lunes</li>
+<li>Pago seguro</li>
+</ul>
+</div>
+</section>
+<!-- Origin -->

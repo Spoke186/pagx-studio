@@ -1,0 +1,274 @@
+---
+// Sotobosque: botanical perfumery concept (PagX, fictional brand). Every image is a Cycles render of
+// assets/blender/sotobosque.blend; the page brings them to life (DECISIONS #43–#45, SOTOBOSQUE.md).
+//   hero      layered render + WebGL light (src/scripts/sotobosque.ts)
+// One afternoon in one clearing: every section is the same place, a little later (the hour sits bottom left).
+//   notas     95 frames: the camera walks in past each note (fern, moss, resin) to the bottle
+//   coleccion each bottle in its own corner of the clearing, pinned horizontal gallery
+//   ritual    evening dew from above; press the cap and the bottle mists
+//   casa      the whole clearing at dusk + manifesto
+//   cierre    the clearing at night + discovery set
+import '@fontsource-variable/cormorant-garamond/wght.css'
+import '@fontsource-variable/cormorant-garamond/wght-italic.css'
+import '@fontsource-variable/instrument-sans/wght.css'
+import '../../styles/sotobosque.css'
+
+const notes = [
+  { k: 'Salida', n: '01', items: ['Fronda de helecho', 'Bergamota verde'], d: 'Lo primero que se abre: verde, húmedo, casi frío.' },
+  { k: 'Corazón', n: '02', items: ['Musgo de roble', 'Hoja de higuera'], d: 'El suelo del bosque después de la lluvia.' },
+  { k: 'Fondo', n: '03', items: ['Resina de pino', 'Cedro', 'Vetiver'], d: 'Lo que queda en la piel al caer la tarde.' },
+]
+const collection = [
+  { n: '01', name: 'Musgo', place: 'La roca del claro', alt: 'sobre la roca cubierta de musgo del claro', notes: 'Musgo de roble · higuera · vetiver', mood: 'Verde y húmedo', price: '480.000', tone: '#3c5a2e' },
+  { n: '02', name: 'Resina', place: 'El tronco caído', alt: 'sobre el tronco caído, junto a dos gotas de resina', notes: 'Resina de pino · ámbar · cedro', mood: 'Cálido y profundo', price: '520.000', tone: '#6b3414' },
+  { n: '03', name: 'Niebla', place: 'Entre los helechos', alt: 'entre helechos, dentro de un banco de niebla', notes: 'Helecho · neroli · almizcle blanco', mood: 'Limpio y suspendido', price: '460.000', tone: '#4a5a58' },
+  { n: '04', name: 'Raíz', place: 'Al pie del árbol', alt: 'al pie de un árbol, sobre la tierra y la hojarasca', notes: 'Vetiver · tierra · cuero', mood: 'Oscuro y terroso', price: '540.000', tone: '#4b2e1c' },
+]
+// the hour of the clearing as you walk through it
+const hours = { hero: ['17:40', 'El claro'], notas: ['18:05', 'Bajo los helechos'], coleccion: ['18:30', 'Cuatro rincones'], ritual: ['19:10', 'El sereno'], casa: ['19:45', 'Cae la tarde'], cierre: ['21:00', 'La noche'] }
+const ritual = ['bergamota', 'helecho', 'musgo', 'higuera', 'resina', 'cedro', 'vetiver']
+---
+
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Sotobosque, perfumería botánica. Fragancias destiladas del suelo del bosque: musgo, resina, niebla y raíz. Concepto de PagX Studio." />
+  <meta name="theme-color" content="#0a0e0a" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preload" href="/sotobosque/d-plate.webp" as="image" media="(min-aspect-ratio: 9/10)" />
+  <link rel="preload" href="/sotobosque/m-plate.webp" as="image" media="(max-aspect-ratio: 9/10)" />
+  <title>Sotobosque · Perfumería botánica</title>
+  <script is:inline>
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.dataset.tier = 'static'
+  </script>
+</head>
+<body>
+  <div class="sb-loader" data-loader aria-hidden="true">
+    <svg viewBox="0 0 60 120" class="sb-loader-flask">
+      <defs>
+        <clipPath id="flask"><rect x="6" y="40" width="48" height="74" rx="9" /></clipPath>
+      </defs>
+      <ellipse cx="30" cy="20" rx="17" ry="12" class="cap" />
+      <rect x="23" y="31" width="14" height="10" rx="1.5" class="cap" />
+      <rect x="6" y="40" width="48" height="74" rx="9" class="glass" />
+      <rect x="6" y="40" width="48" height="74" clip-path="url(#flask)" class="fill" data-fill />
+    </svg>
+    <p class="sb-loader-n"><span data-pct>000</span></p>
+    <p class="sb-loader-t">Destilando el bosque</p>
+  </div>
+
+  <div class="sb-cursor" data-cursor aria-hidden="true"><span></span></div>
+  <p class="sb-hour" aria-hidden="true"><span data-hour-t>{hours.hero[0]}</span><em data-hour-l>{hours.hero[1]}</em></p>
+
+  <header class="sb-nav" data-nav>
+    <a class="sb-mark" href="#top" aria-label="Sotobosque, inicio">Soto<em>bosque</em></a>
+    <nav aria-label="Principal">
+      <a href="#notas">Notas</a>
+      <a href="#coleccion">Colección</a>
+      <a href="#ritual">Ritual</a>
+      <a href="#casa">La casa</a>
+    </nav>
+    <a class="sb-bag" href="#cierre">Bolsa <span data-bag>0</span></a>
+  </header>
+
+  <main id="top">
+    <!-- 1 · HERO ------------------------------------------------------------------------------------------ -->
+    <section class="sb-hero" data-hero data-hour={hours.hero.join('|')}>
+      <canvas class="sb-canvas" data-forest aria-hidden="true"></canvas>
+      <!-- the title lives between the forest (canvas) and the front layer (bottle + rock), like a word inside the scene -->
+      <h1 class="sb-title" aria-label="Sotobosque, perfumería botánica">
+        <span class="sb-title-a" aria-hidden="true">SOTO</span>
+        <span class="sb-title-b" aria-hidden="true">bosque</span>
+      </h1>
+      <picture class="sb-front" aria-hidden="true">
+        <source media="(max-aspect-ratio: 9/10)" srcset="/sotobosque/m-front.webp" />
+        <img data-front src="/sotobosque/d-front.webp" alt="" decoding="async" fetchpriority="high" />
+      </picture>
+      <div class="sb-ring" aria-hidden="true"></div>
+      <div class="sb-vignette" aria-hidden="true"></div>
+
+      <div class="sb-intro">
+        <p class="sb-eyebrow">Perfumería botánica · Colección I</p>
+        <p class="sb-lede">Fragancias destiladas del suelo del bosque. Musgo húmedo, resina tibia y la luz que se cuela entre los helechos, en un frasco de vidrio ámbar.</p>
+        <a class="sb-btn" href="#coleccion" data-magnet><span>Descubrir la colección</span><i aria-hidden="true">↗</i></a>
+      </div>
+
+      <aside class="sb-spec" aria-label="Fragancia destacada">
+        <p class="sb-spec-n">01 / 04</p>
+        <p class="sb-spec-t">Musgo <em>01</em></p>
+        <p class="sb-spec-d">Musgo de roble, hoja de higuera y vetiver ahumado.</p>
+        <p class="sb-spec-p">Eau de parfum · 50 ml · $ 480.000</p>
+      </aside>
+
+      <p class="sb-scroll" aria-hidden="true"><span></span>Desliza para entrar al bosque</p>
+    </section>
+
+    <!-- 2 · ANATOMÍA: the camera walks past each note to the bottle, the notes rise layer by layer ---------- -->
+    <section class="sb-notes" id="notas" data-notes data-hour={hours.notas.join('|')}>
+      <div class="sb-notes-stage">
+        <canvas class="sb-notes-canvas" data-seq aria-hidden="true"></canvas>
+        <div class="sb-notes-copy">
+        <div class="sb-notes-head">
+          <p class="sb-eyebrow">Anatomía de una estela</p>
+          <h2 class="sb-h2" data-split>Tres capas,<br /><em>un solo bosque.</em></h2>
+        </div>
+        <ol class="sb-notes-list">
+          {notes.map((n, i) => (
+            <li class="sb-note" data-note={i}>
+              <span class="sb-note-n">{n.n}</span>
+              <p class="sb-note-k">{n.k}</p>
+              <p class="sb-note-i">{n.items.join(' · ')}</p>
+              <p class="sb-note-d">{n.d}</p>
+            </li>
+          ))}
+        </ol>
+        </div>
+        <div class="sb-notes-rail" aria-hidden="true"><span data-rail></span></div>
+      </div>
+    </section>
+
+    <!-- 3 · COLECCIÓN: four corners of the clearing, a pinned horizontal gallery ----------------------------- -->
+    <section class="sb-col" id="coleccion" data-col data-hour={hours.coleccion.join('|')}>
+      <div class="sb-col-pin">
+        <div class="sb-col-head">
+          <p class="sb-eyebrow">Colección I · Cuatro estelas</p>
+          <h2 class="sb-h2" data-split>Cada una nace<br /><em>de un rincón del bosque.</em></h2>
+        </div>
+        <div class="sb-col-track" data-track>
+          {collection.map((c, i) => (
+            <article class="sb-card" style={`--tone:${c.tone}`} data-card>
+              <div class="sb-card-img">
+                <img src={`/sotobosque/col-${i + 1}.webp`} alt={`Frasco de ${c.name} ${c.n} ${c.alt}`} loading="lazy" decoding="async" width="1200" height="1500" />
+              </div>
+              <div class="sb-card-meta">
+                <span class="sb-card-n">{c.n}</span>
+                <p class="sb-card-place">{c.place}</p>
+                <h3 class="sb-card-t">{c.name}</h3>
+                <p class="sb-card-mood">{c.mood}</p>
+                <p class="sb-card-notes">{c.notes}</p>
+                <div class="sb-card-buy">
+                  <span>50 ml · $ {c.price}</span>
+                  <button class="sb-add" type="button" data-add data-magnet><span>Añadir</span><i aria-hidden="true">+</i></button>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="sb-col-count" aria-hidden="true"><span data-count>01</span> / 04</div>
+      </div>
+    </section>
+
+    <!-- 4 · RITUAL: evening dew from above; the cap is the button ------------------------------------------- -->
+    <section class="sb-ritual" id="ritual" data-ritual data-hour={hours.ritual.join('|')}>
+      <img class="sb-ritual-img" src="/sotobosque/ritual.webp" alt="El frasco destapado sobre el musgo al caer la tarde, con su tapa de piedra al lado" loading="lazy" decoding="async" />
+      <canvas class="sb-mist" data-mist aria-hidden="true"></canvas>
+      <div class="sb-ritual-copy">
+        <p class="sb-eyebrow">El ritual</p>
+        <h2 class="sb-h2" data-split>Como el sereno:<br /><em>poco, y al caer la tarde.</em></h2>
+        <p class="sb-ritual-d">Dos pulverizaciones sobre la piel tibia. La estela se abre en capas durante doce horas.</p>
+      </div>
+      <button class="sb-hold" type="button" data-hold aria-describedby="hold-hint">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" class="track" /><circle cx="60" cy="60" r="56" class="prog" data-hold-prog /></svg>
+        <span class="sb-hold-l">Mantén presionado el atomizador</span>
+      </button>
+      <p id="hold-hint" class="sr-only">Mantén presionado para rociar y descubrir las notas.</p>
+      <ul class="sb-ritual-words" aria-hidden="true">
+        {ritual.map((w) => <li data-word>{w}</li>)}
+      </ul>
+    </section>
+
+    <!-- 5 · LA CASA: the whole clearing at dusk + manifesto -------------------------------------------------- -->
+    <section class="sb-casa" id="casa" data-casa data-hour={hours.casa.join('|')}>
+      <div class="sb-casa-img"><img src="/sotobosque/claro.webp" alt="El claro al atardecer: rayos de luz entre los troncos y el frasco, pequeño, sobre su roca" loading="lazy" decoding="async" data-casa-img /></div>
+      <blockquote class="sb-manifesto" data-manifesto>El bosque ya conoce la respuesta. Nosotros solo la <em>destilamos</em>.</blockquote>
+      <div class="sb-values">
+        <div><span>01</span><h3>Destilado en frío</h3><p>Maceramos a baja temperatura durante seis semanas para no quemar las notas verdes.</p></div>
+        <div><span>02</span><h3>Vidrio para siempre</h3><p>Frascos de vidrio grueso y tapas de piedra natural. Cada uno se recarga en tienda.</p></div>
+        <div><span>03</span><h3>Bosque devuelto</h3><p>Por cada frasco plantamos un árbol nativo en la reserva de la cordillera.</p></div>
+      </div>
+    </section>
+
+    <!-- 6 · CIERRE: the clearing at night + discovery set ---------------------------------------------------- -->
+    <section class="sb-cierre" id="cierre" data-cierre data-hour={hours.cierre.join('|')}>
+      <picture class="sb-cierre-img">
+        <source media="(max-aspect-ratio: 9/10)" srcset="/sotobosque/noche-m.webp" />
+        <img src="/sotobosque/noche-d.webp" alt="El mismo claro de noche, el frasco iluminado entre el musgo" loading="lazy" decoding="async" />
+      </picture>
+      <canvas class="sb-flies" data-flies aria-hidden="true"></canvas>
+      <div class="sb-cierre-copy">
+        <p class="sb-eyebrow">Set de descubrimiento</p>
+        <h2 class="sb-h2 sb-h2-xl" data-split>Lleva el bosque<br /><em>a casa.</em></h2>
+        <p class="sb-cierre-d">Las cuatro estelas en viales de 2 ml, en una caja de madera de cedro. El valor se descuenta de tu primer frasco.</p>
+        <div class="sb-cierre-cta">
+          <button class="sb-btn sb-btn-solid" type="button" data-add data-magnet><span>Pedir el set · $ 120.000</span><i aria-hidden="true">↗</i></button>
+          <p class="sb-cierre-note">Envío en caja de cedro · 3 a 5 días</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sb-foot">
+    <div class="sb-foot-mark">Soto<em>bosque</em></div>
+    <div class="sb-foot-cols">
+      <div><p>Tienda</p><a href="#coleccion">Colección I</a><a href="#cierre">Set de descubrimiento</a><a href="#ritual">Recargas</a></div>
+      <div><p>La casa</p><a href="#casa">Manifiesto</a><a href="#notas">Ingredientes</a><a href="#casa">Reforestación</a></div>
+      <div><p>Contacto</p><a href="#top">hola@sotobosque.co</a><a href="#top">Instagram</a><a href="#top">Bogotá · Medellín</a></div>
+    </div>
+    <p class="sb-foot-legal">Concepto de PagX Studio. Marca y productos ficticios. Imágenes renderizadas en 3D.</p>
+  </footer>
+</body>
+</html>
+
+<script>
+  import { createClock, gsap, ScrollTrigger } from '@pagx/motion'
+  import { SplitText } from 'gsap/SplitText'
+  import { mountForest } from '../../scripts/sotobosque'
+  import { mountSections } from '../../scripts/sotobosque-sections'
+
+  gsap.registerPlugin(SplitText)
+  const root = document.documentElement
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
+  const loader = document.querySelector<HTMLElement>('[data-loader]')!
+  const fill = loader.querySelector<SVGRectElement>('[data-fill]')!
+  const pct = loader.querySelector<HTMLElement>('[data-pct]')!
+  let shown = 0, target = 0
+
+  // the flask fills with amber as the assets arrive
+  const setFill = (p: number) => {
+    fill.style.transform = `translateY(${(1 - p) * 100}%)`
+    pct.textContent = String(Math.round(p * 100)).padStart(3, '0')
+  }
+  const clock = createClock({ smooth: !reduced, lerp: 0.085 })
+  clock.lenis?.stop()
+  const offLoad = clock.add(() => {
+    shown += (target - shown) * 0.08
+    setFill(shown)
+  })
+  const reveal = () => {
+    target = 1
+    setTimeout(() => { offLoad(); setFill(1); root.classList.add('is-ready'); clock.lenis?.start(); ScrollTrigger.refresh() }, 650)
+  }
+
+  // the title rises letter by letter out of the moss once the clearing is lit
+  const split = new SplitText('.sb-title span', { type: 'chars', mask: 'chars' })
+  gsap.set(split.chars, { yPercent: reduced ? 0 : 110 })
+  const intro = () => {
+    if (!reduced) gsap.to(split.chars, { yPercent: 0, duration: 1.6, ease: 'expo.out', stagger: 0.06, delay: 0.5 })
+  }
+
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-forest]')!
+  const front = document.querySelector<HTMLImageElement>('[data-front]')!
+  const frontReady = front.decode().catch(() => {})
+  const go = () => frontReady.then(() => { reveal(); intro() })
+  if (root.dataset.tier === 'static') go()
+  else {
+    mountForest(canvas, clock.add, (p) => (target = Math.max(target, p * 0.95)))
+      .then((forest) => { if (!forest) root.dataset.tier = 'static' })
+      .catch(() => { root.dataset.tier = 'static' })
+      .finally(go)
+  }
+
+  mountSections({ add: clock.add, lenis: clock.lenis, reduced })
+</script>

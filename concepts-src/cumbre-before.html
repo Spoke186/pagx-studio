@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- The "before": the same store on a generic template, on purpose. Rendered to an image by render.mjs. -->
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #fff; color: #333; font: 14px/1.5 Arial, Helvetica, sans-serif; }
+  .top { background: #3b5bdb; color: #fff; text-align: center; padding: 6px; font-size: 13px; }
+  nav { display: flex; align-items: center; gap: 24px; padding: 18px 40px; border-bottom: 1px solid #ddd; }
+  nav b { font-size: 22px; color: #111; margin-right: auto; }
+  nav span { color: #3b5bdb; }
+  .banner { margin: 24px 40px; height: 220px; background: #cfd8e3; display: grid; place-items: center; text-align: center; color: #444; }
+  .banner h2 { font-size: 30px; color: #222; }
+  .banner button { margin-top: 10px; background: #3b5bdb; color: #fff; border: 0; padding: 10px 22px; border-radius: 4px; font-size: 14px; }
+  h3 { margin: 8px 40px 14px; font-size: 20px; color: #111; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 0 40px; }
+  .card { border: 1px solid #ddd; padding: 12px; }
+  .card .img { height: 190px; background: #eee; overflow: hidden; display: grid; place-items: center; color: #999; }
+  .card .img img { width: 60%; }
+  .card p { margin-top: 8px; color: #111; }
+  .card span { color: #e03131; font-weight: bold; }
+  .card button { display: block; width: 100%; margin-top: 8px; background: #3b5bdb; color: #fff; border: 0; padding: 8px; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <div class="top">¡¡ENVÍO GRATIS!! Compra ya</div>
+  <nav><b>Mi Tienda Online</b><span>Inicio</span><span>Catálogo</span><span>Contacto</span><span>🛒 (0)</span></nav>
+  <div class="banner"><div><h2>¡Bienvenidos a nuestra tienda!</h2><p>Los mejores productos al mejor precio</p><button>Comprar ahora</button></div></div>
+  <h3>Productos destacados</h3>
+  <div class="grid">
+    <div class="card"><div class="img"><img src="../assets/higgsfield/cumbre-product.webp" alt="" /></div><p>Café Cumbre 250g</p><span>$48.000</span><button>Agregar al carrito</button></div>
+    <div class="card"><div class="img">Sin imagen</div><p>Producto 2</p><span>$35.000</span><button>Agregar al carrito</button></div>
+    <div class="card"><div class="img">Sin imagen</div><p>Producto 3</p><span>$29.900</span><button>Agregar al carrito</button></div>
+    <div class="card"><div class="img">Sin imagen</div><p>Producto 4</p><span>$52.000</span><button>Agregar al carrito</button></div>
+  </div>
+</body>
+</html>

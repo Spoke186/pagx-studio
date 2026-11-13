@@ -1,0 +1,70 @@
+<main id="top">
+<!-- 1 · HERO ----------------------------------------------------------------------------------
+<section class="v-hero" data-hero="">
+<canvas class="v-canvas" data-scene="" aria-hidden="true">
+</canvas>
+<picture class="v-plate" aria-hidden="true">
+<source media="(max-aspect-ratio: 9/10)" srcset="/villa/m-plate.webp">
+<img src="/villa/d-plate.webp" alt="" decoding="async">
+</picture>
+<h1 class="v-title" aria-label="Instituto La Villa, Instituto Educativo de Alta Complejidad con 
+<span class="v-title-a" aria-hidden="true" aria-label="Instituto">
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+</span>
+<span class="v-title-b" aria-hidden="true" aria-label="La Villa">
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div> <div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+<div aria-hidden="true" style="position: relative; display: inline-block; overflow: clip;">
+<div aria-hidden="true" style="position: relative; display: inline-block; translate: none; rotat
+</div>
+</span>
+</h1>
+<picture class="v-front" aria-hidden="true">
+<source media="(max-aspect-ratio: 9/10)" srcset="/villa/m-front.webp">
+<img data-front="" src="/villa/d-front.webp" alt="" decoding="async" fetchpriority="high">
+</picture>
+<div class="v-hero-top">
+<p class="v-tag">Instituto Educativo de Alta Complejidad<br>con Énfasis Ambiental</p>
+<p class="v-tag v-tag-r">IE Alfonso Jaramillo Gutiérrez<br>Sede La Villa</p>
+</div>
